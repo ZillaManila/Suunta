@@ -1,20 +1,22 @@
 ---
 import ArrowIcon from './ArrowIcon.astro';
 import Icon from './Icon.astro';
-import ImageSlot from './ImageSlot.astro';
 import { site } from '../data/site';
-
-// Scattered "AI activity" points that converge into one direction.
-const scatter = [
-  [52, 470], [104, 522], [34, 398], [148, 456], [88, 372], [168, 516], [126, 414], [22, 506],
-];
-const converge = [214, 430];
-const dots: [number, number][] = [];
-for (let x = 20; x <= 500; x += 32) for (let y = 20; y <= 540; y += 32) dots.push([x, y]);
 ---
 
 <section class="hero" id="top">
-  <div class="wrap grid hero__grid">
+  <div class="hero__bg" aria-hidden="true">
+    <img
+      src="/images/hero-bg-2400.jpg"
+      srcset="/images/hero-bg-1200.jpg 1200w, /images/hero-bg-2400.jpg 2400w"
+      sizes="100vw"
+      alt=""
+      fetchpriority="high"
+      decoding="async"
+    />
+  </div>
+
+  <div class="wrap hero__inner">
     <div class="hero__copy">
       <p class="eyebrow" data-reveal>Human-centered AI consulting for C-suite leaders and founders</p>
       <h1 class="display hero__title" data-split style="--split-delay:150ms">
@@ -35,64 +37,7 @@ for (let x = 20; x <= 500; x += 32) for (let y = 20; y <= 540; y += 32) dots.pus
       </div>
     </div>
 
-    <figure class="hero__figure" aria-hidden="true" data-draw>
-      <svg viewBox="0 0 520 560" class="direction">
-        <g class="direction__grid">
-          {dots.map(([x, y]) => <circle cx={x} cy={y} r="1" />)}
-        </g>
-
-        <g class="direction__activity">
-          {scatter.map(([x, y], i) => (
-            <path
-              d={`M${x} ${y} Q ${(x + converge[0]) / 2 + (i % 2 ? 18 : -14)} ${(y + converge[1]) / 2 + (i % 3 ? -16 : 20)} ${converge[0]} ${converge[1]}`}
-              style={`--d:${i * 70}ms`}
-            />
-          ))}
-          {scatter.map(([x, y]) => <circle cx={x} cy={y} r="3.2" />)}
-        </g>
-
-        <g class="direction__compass">
-          <circle class="direction__ring" cx="430" cy="112" r="74" />
-          <g class="direction__ticks">
-            {Array.from({ length: 24 }, (_, i) => (
-              <line x1="430" y1={112 - 74} x2="430" y2={112 - (i % 6 === 0 ? 64 : 69)} transform={`rotate(${i * 15} 430 112)`} />
-            ))}
-          </g>
-          <circle class="direction__ring direction__ring--inner" cx="430" cy="112" r="44" />
-        </g>
-        <circle class="direction__pulse" cx="430" cy="112" r="6" />
-
-        <path
-          class="direction__path"
-          pathLength="1"
-          d="M214 430 C 240 396, 246 366, 262 336 S 316 262, 336 238 S 398 162, 430 112 L 468 54"
-        />
-        <path class="direction__head" d="M472.4 47.3 L469.7 62.3 L466.9 55.7 L459.7 55.7 Z" />
-
-        <g class="direction__nodes">
-          <g style="--d:900ms"><circle cx="214" cy="430" r="5" /><text x="232" y="452">AI activity</text></g>
-          <g style="--d:1150ms"><circle cx="262" cy="336" r="6" /><text x="282" y="340">Work</text></g>
-          <g style="--d:1400ms"><circle cx="336" cy="238" r="6" /><text x="356" y="242">Workflow</text></g>
-          <g style="--d:1650ms"><circle cx="430" cy="112" r="6" /><text x="350" y="116" text-anchor="end">Value</text></g>
-        </g>
-      </svg>
-      <figcaption class="hero__caption">
-        <span>Suunta</span> &nbsp;/&nbsp; direction, in Finnish
-      </figcaption>
-    </figure>
-  </div>
-
-  <div class="wrap hero__band">
-    <ImageSlot
-      label="Executive team working session, natural light"
-      src="/images/hero-team-session.jpg"
-      alt="An executive team in a working session around a meeting table"
-      ratio="21 / 9"
-      tone="navy"
-      class="hero__img"
-      eager
-    />
-    <div class="hero__card" data-reveal style="--i:2">
+    <div class="hero__card" data-reveal style="--i:5">
       <p class="hero__card-label">The method</p>
       <ol role="list">
         <li><Icon name="users-three" /><span>Work</span></li>
@@ -101,26 +46,122 @@ for (let x = 20; x <= 500; x += 32) for (let y = 20; y <= 540; y += 32) dots.pus
       </ol>
     </div>
   </div>
+
+  <a class="hero__scroll" href="#opportunity" aria-label="Scroll to the next section">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9" /></svg>
+  </a>
 </section>
 
 <style>
   .hero {
     position: relative;
-    padding: clamp(128px, 16vh, 176px) 0 clamp(72px, 9vw, 120px);
+    display: flex;
+    align-items: center;
+    min-height: max(100dvh, 720px);
+    padding: clamp(120px, 15vh, 160px) 0 clamp(96px, 12vh, 140px);
+    overflow: hidden;
+    isolation: isolate;
   }
-  .hero__band {
+
+  /* Full-width background photo */
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+  .hero__bg {
+    background: var(--paper);
+  }
+  .hero__bg img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 76%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 55% center;
+    filter: saturate(0.82) contrast(1.02);
+    animation: hero-settle 2.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  @keyframes hero-settle {
+    from {
+      transform: scale(1.08);
+      opacity: 0;
+    }
+  }
+  /* Paper wash from the left so the navy copy reads over the photo */
+  .hero__bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(245, 244, 240, 1) 0%, rgba(245, 244, 240, 1) 24%, rgba(245, 244, 240, 0.82) 38%, rgba(245, 244, 240, 0.3) 56%, rgba(245, 244, 240, 0) 72%),
+      linear-gradient(180deg, rgba(245, 244, 240, 0.55) 0%, rgba(245, 244, 240, 0) 22%);
+  }
+  /* Slow drift as the page scrolls away */
+  @supports (animation-timeline: view()) {
+    .hero__bg {
+      animation: hero-drift linear both;
+      animation-timeline: view();
+      animation-range: exit;
+    }
+    @keyframes hero-drift {
+      to {
+        transform: translateY(12%);
+      }
+    }
+  }
+
+  .hero__inner {
     position: relative;
-    margin-top: clamp(64px, 8vw, 112px);
+    width: 100%;
   }
+  .hero__copy {
+    max-width: 700px;
+  }
+  .hero__title {
+    margin-top: 28px;
+    font-size: clamp(40px, 5vw, 70px);
+  }
+  .hero__title em {
+    color: var(--teal-deep);
+  }
+  .hero__lede {
+    margin-top: 32px;
+    max-width: 58ch;
+    color: var(--ink-soft);
+  }
+  .hero__note {
+    margin-top: 28px;
+    padding-left: 20px;
+    border-left: 1px solid var(--teal);
+    max-width: 52ch;
+    font-size: 15.5px;
+    color: var(--ink-soft);
+  }
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 40px;
+  }
+  .hero__actions .btn--ghost {
+    background: rgba(245, 244, 240, 0.6);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+
+  /* Floating method card over the photo */
   .hero__card {
     position: absolute;
-    right: calc(var(--gutter) + clamp(16px, 3vw, 48px));
-    bottom: clamp(-48px, -3vw, -24px);
-    z-index: 3;
-    width: min(320px, 70%);
-    padding: 24px 26px;
-    background: var(--paper);
-    border: 1px solid var(--line);
+    right: var(--gutter);
+    bottom: clamp(-60px, -6vh, -40px);
+    width: 290px;
+    padding: 22px 24px;
+    background: rgba(245, 244, 240, 0.86);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
     box-shadow: 0 30px 60px -30px rgba(15, 26, 45, 0.35);
   }
   .hero__card-label {
@@ -132,7 +173,7 @@ for (let x = 20; x <= 500; x += 32) for (let y = 20; y <= 540; y += 32) dots.pus
   }
   .hero__card ol {
     list-style: none;
-    margin-top: 14px;
+    margin-top: 12px;
   }
   .hero__card li {
     position: relative;
@@ -182,215 +223,77 @@ for (let x = 20; x <= 500; x += 32) for (let y = 20; y <= 540; y += 32) dots.pus
       transform: translateY(-50%) scale(1.6);
     }
   }
-  .hero__grid {
-    align-items: center;
-    row-gap: 56px;
-  }
-  .hero__copy {
-    grid-column: 1 / 8;
-  }
-  .hero__title {
-    margin-top: 28px;
-    font-size: clamp(40px, 5vw, 68px);
-  }
-  .hero__title em {
-    color: var(--teal-deep);
-  }
-  .hero__lede {
-    margin-top: 32px;
-  }
-  .hero__note {
-    margin-top: 28px;
-    padding-left: 20px;
-    border-left: 1px solid var(--teal);
-    max-width: 56ch;
-    font-size: 15.5px;
-    color: var(--ink-soft);
-  }
-  .hero__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 40px;
-  }
-  .hero__figure {
-    grid-column: 8 / 13;
-    margin: 0;
-  }
-  .hero__caption {
-    margin-top: 8px;
-    text-align: right;
-    font-size: 13px;
-    color: var(--ink-muted);
-    letter-spacing: 0.02em;
-  }
-  .hero__caption span {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 16px;
-    color: var(--ink);
-  }
 
-  .direction {
-    width: 100%;
-    height: auto;
-    overflow: visible;
+  .hero__scroll {
+    position: absolute;
+    left: 50%;
+    bottom: 28px;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: #fff;
+    transform: translateX(-50%);
+    animation: scroll-nudge 2.4s ease-in-out infinite;
   }
-  .direction__grid circle {
-    fill: var(--ink);
-    opacity: 0.13;
-  }
-  .direction__activity path {
+  .hero__scroll svg {
+    width: 16px;
+    height: 16px;
     fill: none;
-    stroke: var(--ink-muted);
-    stroke-width: 1;
-    stroke-dasharray: 2 4;
-    opacity: 0.55;
+    stroke: currentColor;
+    stroke-width: 2.2;
   }
-  .direction__activity circle {
-    fill: var(--paper);
-    stroke: var(--ink-muted);
-    stroke-width: 1.2;
-  }
-  .direction__ring {
-    fill: none;
-    stroke: var(--teal);
-    stroke-width: 1;
-    opacity: 0.22;
-  }
-  .direction__compass {
-    transform-origin: 430px 112px;
-    animation: compass-turn 60s linear infinite;
-  }
-  @keyframes compass-turn {
-    to {
-      transform: rotate(360deg);
+  @keyframes scroll-nudge {
+    50% {
+      transform: translate(-50%, 5px);
     }
   }
-  .direction__ticks line {
-    stroke: var(--teal);
-    stroke-width: 1;
-    opacity: 0.35;
-  }
-  .direction__pulse {
-    fill: none;
-    stroke: var(--teal);
-    stroke-width: 1.2;
-    transform-origin: 430px 112px;
-    animation: node-pulse 2.8s var(--ease) 2.6s infinite;
-    opacity: 0;
-  }
-  @keyframes node-pulse {
-    0% {
-      opacity: 0.8;
-      transform: scale(1);
-    }
-    100% {
-      opacity: 0;
-      transform: scale(4.5);
+
+  @media (max-width: 1099px) {
+    .hero__card {
+      display: none;
     }
   }
-  .direction__ring--inner {
-    stroke-dasharray: 2 5;
-    opacity: 0.4;
-  }
-  .direction__path {
-    fill: none;
-    stroke: var(--teal);
-    stroke-width: 1.8;
-    stroke-linecap: round;
-    stroke-dasharray: 1;
-    stroke-dashoffset: 0;
-  }
-  .direction__head {
-    fill: var(--teal);
-  }
-  .direction__nodes circle {
-    fill: var(--paper);
-    stroke: var(--teal);
-    stroke-width: 1.6;
-  }
-  .direction__nodes g:first-child circle {
-    stroke: var(--ink-muted);
-  }
-  .direction__nodes text {
-    font-family: var(--sans);
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    fill: var(--ink);
-  }
-  .direction__nodes g:first-child text {
-    fill: var(--ink-muted);
-  }
-
-  /* Draw-in sequence */
-  :global(.js) .direction__path {
-    stroke-dashoffset: 1;
-    transition: stroke-dashoffset 1.9s cubic-bezier(0.65, 0, 0.35, 1) 0.5s;
-  }
-  :global(.js) .direction__head,
-  :global(.js) .direction__nodes g,
-  :global(.js) .direction__activity path {
-    opacity: 0;
-    transition: opacity 0.8s var(--ease);
-  }
-  :global(.js) .direction__head {
-    transition-delay: 2.2s;
-  }
-  :global(.js) .direction__nodes g {
-    transition-delay: var(--d);
-  }
-  :global(.js) .direction__activity path {
-    transition-delay: var(--d);
-  }
-  :global(.js) .hero__figure.is-in .direction__path {
-    stroke-dashoffset: 0;
-  }
-  :global(.js) .hero__figure.is-in .direction__head,
-  :global(.js) .hero__figure.is-in .direction__nodes g {
-    opacity: 1;
-  }
-  :global(.js) .hero__figure.is-in .direction__activity path {
-    opacity: 0.55;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .direction__compass,
-    .direction__pulse,
-    .hero__card li::after {
+  @media (max-width: 767px) {
+    .hero {
+      flex-direction: column;
+      align-items: stretch;
+      min-height: 0;
+      padding-top: 0;
+    }
+    /* On phones the photo sits on top and the copy follows on paper */
+    .hero__bg {
+      position: relative;
+      inset: auto;
+      z-index: 0;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      margin-top: 76px;
       animation: none;
     }
-    :global(.js) .direction__path {
-      stroke-dashoffset: 0;
-      transition: none;
+    .hero__bg::after {
+      background: linear-gradient(180deg, rgba(245, 244, 240, 0) 55%, rgba(245, 244, 240, 1) 100%);
     }
-    :global(.js) .direction__head,
-    :global(.js) .direction__nodes g {
-      opacity: 1;
-      transition: none;
+    .hero__bg img {
+      position: static;
+      width: 100%;
+      object-position: 78% center;
     }
-    :global(.js) .direction__activity path {
-      opacity: 0.55;
-      transition: none;
+    .hero__inner {
+      margin-top: -24px;
+    }
+    .hero__scroll {
+      display: none;
     }
   }
-
-  @media (max-width: 899px) {
-    .hero__band :global(.hero__img) {
-      aspect-ratio: 4 / 3 !important;
-    }
-    .hero__card {
-      position: relative;
-      right: auto;
-      bottom: auto;
-      width: auto;
-      margin: -40px 16px 0;
-    }
-    .hero__figure {
-      max-width: 420px;
-      margin-left: auto;
+  @media (prefers-reduced-motion: reduce) {
+    .hero__bg,
+    .hero__bg img,
+    .hero__card li::after,
+    .hero__scroll {
+      animation: none;
     }
   }
 </style>

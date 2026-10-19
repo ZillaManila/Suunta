@@ -49,7 +49,7 @@ the approach timeline, and links.
 | Section | File |
 | --- | --- |
 | Header + mobile menu | `src/components/Header.astro` |
-| Hero + image band | `src/components/Hero.astro` |
+| Hero (full-width background photo) | `src/components/Hero.astro` |
 | Marquee band | `src/components/Marquee.astro` |
 | The executive opportunity (McKinsey stats) | `src/components/Opportunity.astro` |
 | The method: Work → Workflow → Value | `src/components/Method.astro` |

@@ -5,7 +5,6 @@ free for commercial use, no attribution required. Credited here as good practice
 
 | File | Photo | Photographer | Source |
 | --- | --- | --- | --- |
-| `hero-team-session.jpg` | Business Team | Direct Media | https://stocksnap.io/photo/business-team-W6PNBNYHM6 |
 | `leaders-reviewing.jpg` | Business People | Direct Media | https://stocksnap.io/photo/business-people-DUXISHKTT3 |
 | `method-work.jpg` | Business People | Direct Media | https://stocksnap.io/photo/business-people-H6PSN9BPGZ |
 | `method-workflow.jpg` | Whiteboard Webdesign | Christina Morillo | https://stocksnap.io/photo/whiteboard-webdesign-NUEH6AWK1X |
@@ -24,3 +23,11 @@ free for commercial use, no attribution required. Credited here as good practice
 | `brief-3.jpg` | Business People | Direct Media | https://stocksnap.io/photo/business-people-AVJUQINOHJ |
 | `brief-4.jpg` | Business People | Direct Media | https://stocksnap.io/photo/business-people-NOCUN9VX3F |
 | `brief-5.jpg` | Business People | Direct Media | https://stocksnap.io/photo/business-people-NS0TW3LSDM |
+
+## Burst (Shopify)
+
+Free to use commercially under the [Burst license](https://www.shopify.com/stock-photos/licenses); no attribution required.
+
+| File | Photo | Source |
+| --- | --- | --- |
+| `hero-bg-2400.jpg`, `hero-bg-1200.jpg` | Powerful Business Women In Meeting (mirrored) | https://www.shopify.com/stock-photos/photos/powerful-business-women-in-meeting |
