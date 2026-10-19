@@ -22,6 +22,10 @@
   --on-night-soft: #aab3c4;
   --line-night: rgba(238, 240, 243, 0.14);
 
+  /* Accent block (calm teal-mist, replaces the reference's yellow) */
+  --mist: #d9e9ec;
+  --mist-2: #c6dee3;
+
   /* Accent */
   --teal: #0e7490;
   --teal-deep: #0b5d74;
@@ -483,4 +487,71 @@ ol {
 
 .section--night .chip .icon {
   color: var(--teal-light);
+}
+
+/* ---------- Accordion panels ---------- */
+
+[data-acc-panel] {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-acc-panel] > * {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.js [data-acc-item]:not(.is-open) > * [data-acc-panel],
+.js [data-acc-item]:not(.is-open) > [data-acc-panel] {
+  grid-template-rows: 0fr;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-acc-panel] {
+    transition: none;
+  }
+}
+
+/* Round plus/minus toggle used by accordions */
+.acc-toggle {
+  position: relative;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.acc-toggle::before,
+.acc-toggle::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12px;
+  height: 1.5px;
+  background: var(--ink);
+  transform: translate(-50%, -50%);
+  transition: transform 0.4s var(--ease), background-color 0.3s;
+}
+
+.acc-toggle::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.is-open > * .acc-toggle,
+.is-open .acc-toggle {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+.is-open .acc-toggle::before,
+.is-open .acc-toggle::after {
+  background: #fff;
+}
+
+.is-open .acc-toggle::after {
+  transform: translate(-50%, -50%) rotate(0deg);
 }

@@ -13,3 +13,14 @@ free for commercial use, no attribution required. Credited here as good practice
 | `workshop-redesign.jpg` | Team Meeting | Startup Stock Photos | https://stocksnap.io/photo/team-meeting-84GOP2OAKR |
 | `focused-pilot.jpg` | Business People | Direct Media | https://stocksnap.io/photo/business-people-HWLNQD65VR |
 | `finnish-lake.jpg` | Lake River | Dominik Dombrowski | https://stocksnap.io/photo/lake-river-T67N25HBIA |
+| `svc-direction-call.jpg` | Business People | Direct Media | https://stocksnap.io/photo/business-people-VIEC4IZZRI |
+| `svc-scoped-diagnostic.jpg` | Business People | Direct Media | https://stocksnap.io/photo/business-people-SLSA7V79H2 |
+| `svc-strategy-roadmap.jpg` | Business People | Direct Media | https://stocksnap.io/photo/business-people-IDYMLGDH3I |
+| `svc-work-redesign.jpg` | Business People | Direct Media | https://stocksnap.io/photo/business-people-AKSM11WW9N |
+| `svc-implementation.jpg` | Business People | Direct Media | https://stocksnap.io/photo/business-people-FRU4Y0OBEY |
+| `svc-measurement.jpg` | Business Team | Direct Media | https://stocksnap.io/photo/business-team-RMVMI0VFZ3 |
+| `brief-1.jpg` | Business People | Direct Media | https://stocksnap.io/photo/business-people-AVEETCDTQA |
+| `brief-2.jpg` | Business People | Direct Media | https://stocksnap.io/photo/business-people-WC6HIXVOYF |
+| `brief-3.jpg` | Business People | Direct Media | https://stocksnap.io/photo/business-people-AVJUQINOHJ |
+| `brief-4.jpg` | Business People | Direct Media | https://stocksnap.io/photo/business-people-NOCUN9VX3F |
+| `brief-5.jpg` | Business People | Direct Media | https://stocksnap.io/photo/business-people-NS0TW3LSDM |

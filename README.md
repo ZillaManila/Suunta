@@ -54,11 +54,11 @@ the approach timeline, and links.
 | The executive opportunity (McKinsey stats) | `src/components/Opportunity.astro` |
 | The method: Work → Workflow → Value | `src/components/Method.astro` |
 | Built to keep adapting (Gartner 2×) | `src/components/Adaptation.astro` |
-| The approach (5 steps) | `src/components/Approach.astro` |
-| Services | `src/components/Services.astro` |
+| The approach (5-step accordion) | `src/components/Approach.astro` |
+| Services (card carousel, "What's included" expanders) | `src/components/Services.astro` |
 | About John + Why Suunta Labs | `src/components/About.astro` |
 | The belief | `src/components/Belief.astro` |
-| Executive insights | `src/components/Insights.astro` |
+| Executive insights (photo + accordion; each brief swaps the photo) | `src/components/Insights.astro` |
 | Contact | `src/components/Contact.astro` |
 | Footer | `src/components/Footer.astro` |
 

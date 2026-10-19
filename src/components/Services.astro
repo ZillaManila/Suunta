@@ -1,191 +1,478 @@
 ---
-import ArrowIcon from './ArrowIcon.astro';
-import IconBadge from './IconBadge.astro';
+// Layout follows the reference landing page's "Services" carousel: a swipeable row of
+// photo cards beside a dark intro panel, on an offset colour block.
+import Mark from './Mark.astro';
 import Icon from './Icon.astro';
 import { services, site } from '../data/site';
 ---
 
-<section class="section services" id="services" aria-labelledby="services-title">
+<section class="services" id="services" aria-labelledby="services-title">
   <div class="wrap">
-    <div class="grid services__head">
-      <div class="services__label">
-        <p class="eyebrow" data-reveal>Services</p>
-      </div>
-      <div class="services__intro">
-        <h2 class="h2" id="services-title" data-split>AI Transformation From Strategy Through Adoption</h2>
-        <p class="lede services__lede" data-reveal style="--i:1">
+    <div class="svc-layout">
+      <div class="svc-intro" data-reveal>
+        <span class="svc-intro__label">Services</span>
+        <h2 class="svc-intro__title" id="services-title">AI Transformation From Strategy Through Adoption</h2>
+        <p>
           I help executive teams connect AI strategy, implementation, and adoption through an operating model that
           brings together people, technology, workflows, leadership, accountability, and measurable value.
         </p>
+        <p>
+          Every engagement starts with a Direction Call. From there, I recommend the right next step, and each scope
+          is designed around your priorities, context, people, systems, and readiness.
+        </p>
+        <a href={site.bookingUrl} class="svc-intro__link">Start with a Direction Call</a>
+        <div class="svc-arrows">
+          <button class="circ" type="button" data-svc-prev aria-label="Previous service">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 6 9 12 15 18" /></svg>
+          </button>
+          <button class="circ" type="button" data-svc-next aria-label="Next service">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18" /></svg>
+          </button>
+        </div>
       </div>
-    </div>
 
-    <ul class="svc" role="list">
-      {services.map((s, i) => (
-        <li class:list={['svc__row has-badge', { 'svc__row--start': i === 0 }]} data-reveal>
-          <span class="svc__index">
-            <IconBadge name={s.icon} tone={i === 0 ? 'solid' : 'line'} />
-            <span>{String(i + 1).padStart(2, '0')}</span>
-          </span>
-          <h3 class="svc__name">
-            {s.name}
-            {i === 0 && <span class="svc__badge">Start here</span>}
-          </h3>
-          <p class="svc__body">{s.body}</p>
-          <span class="svc__go" aria-hidden="true"><Icon name="arrow-up-right" /></span>
-        </li>
-      ))}
-    </ul>
-
-    <div class="grid services__foot">
-      <p class="services__note" data-reveal>
-        Every engagement starts with a Direction Call. From there, I recommend the right next step, and each scope
-        is designed around your priorities, context, people, systems, and readiness.
-      </p>
-      <div class="services__cta" data-reveal style="--i:1">
-        <a class="btn" href={site.bookingUrl} data-magnetic>Start with a Direction Call <ArrowIcon /></a>
+      <div class="svc-track" data-svc-track tabindex="0" role="region" aria-label="Services, scroll sideways for more" data-reveal>
+        {services.map((s, i) => (
+          <article class="svc-card">
+            <div class="svc-media">
+              <img src={s.image} alt={s.alt} loading="lazy" decoding="async" />
+              <span class="svc-tag">{String(i + 1).padStart(2, '0')} · {s.tag}</span>
+            </div>
+            <div class="svc-body">
+              <span class="svc-tick" aria-hidden="true"></span>
+              <h3>
+                <span class="svc-icon" aria-hidden="true"><Icon name={s.icon} /></span>
+                {s.name}
+              </h3>
+              <p class="svc-sub">{s.body}</p>
+              <div class="zip" data-zip>
+                <div class="zip-body" data-zip-body id={`svc-zip-${i}`}>
+                  <ul>
+                    {s.includes.map((item) => <li>{item}</li>)}
+                  </ul>
+                  {'receive' in s && s.receive && (
+                    <p class="receive"><b>You receive</b> {s.receive}</p>
+                  )}
+                </div>
+                <button class="zip-toggle" type="button" data-zip-toggle aria-expanded="false" aria-controls={`svc-zip-${i}`}>
+                  <span class="zip-track" aria-hidden="true">
+                    <span class="zip-pull"><Mark /></span>
+                  </span>
+                  <span class="zip-label" data-more="What's included" data-less="Show less">What's included</span>
+                </button>
+              </div>
+              <div class="svc-btn">
+                <a href={site.bookingUrl} class="btn btn--ghost">Discuss this engagement</a>
+              </div>
+            </div>
+          </article>
+        ))}
       </div>
     </div>
   </div>
 </section>
 
 <style>
-  .services__label {
-    grid-column: 1 / 5;
-    padding-top: 14px;
-  }
-  .services__intro {
-    grid-column: 5 / 13;
-  }
-  .services__lede {
-    margin-top: 28px;
-  }
-  .svc {
-    list-style: none;
-    margin-top: clamp(64px, 8vw, 104px);
-    border-top: 1px solid var(--line-strong);
-  }
-  .svc__row {
+  .services {
     position: relative;
-    display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: clamp(16px, 2.4vw, 32px);
-    row-gap: 12px;
-    align-items: center;
-    padding: 28px 0;
-    border-bottom: 1px solid var(--line);
-    isolation: isolate;
+    padding: clamp(80px, 9vw, 120px) 0 clamp(88px, 10vw, 130px);
+    overflow: hidden;
   }
-  .svc__row::before {
+  /* Offset colour blocks behind the layout */
+  .services::before {
     content: '';
     position: absolute;
-    inset: 0 calc(var(--gutter) * -0.5);
-    z-index: -1;
-    background: var(--paper-2);
-    transform: scaleY(0);
-    transform-origin: bottom;
-    transition: transform 0.5s var(--ease);
+    left: 0;
+    top: 0;
+    bottom: 22%;
+    width: 100%;
+    background: var(--mist);
   }
-  .svc__row:hover::before {
-    transform: scaleY(1);
+  @media (min-width: 1024px) {
+    .services::before {
+      width: 62%;
+      bottom: 0;
+    }
+    .services::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 38%;
+      height: 62%;
+      background: var(--mist);
+    }
   }
-  .svc__index {
-    grid-column: 1 / 3;
+  .services .wrap {
+    position: relative;
+    z-index: 1;
+  }
+  .svc-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  @media (min-width: 1024px) {
+    .svc-layout {
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+      align-items: stretch;
+    }
+  }
+
+  /* Dark intro panel */
+  .svc-intro {
+    position: relative;
     display: flex;
+    flex-direction: column;
+    padding: 40px 32px;
+    background: var(--night);
+    color: var(--on-night);
+  }
+  @media (min-width: 1024px) {
+    .svc-intro {
+      order: 2;
+      padding: 48px 40px;
+    }
+  }
+  .svc-intro__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal-light);
+  }
+  .svc-intro__label::before {
+    content: '';
+    width: 28px;
+    height: 1px;
+    background: var(--teal-light);
+  }
+  .svc-intro__title {
+    margin-bottom: 22px;
+    font-family: var(--serif);
+    font-weight: 380;
+    font-size: clamp(28px, 2.6vw, 38px);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+  .svc-intro p {
+    margin-bottom: 14px;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--on-night-soft);
+  }
+  .svc-intro__link {
+    display: inline-flex;
     align-items: center;
     gap: 16px;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    color: var(--teal);
+    min-height: 44px;
+    margin-top: auto;
+    padding-top: 22px;
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--on-night);
   }
-  .svc__go {
-    grid-column: 12 / 13;
-    justify-self: end;
+  .svc-intro__link::after {
+    content: '';
+    width: 48px;
+    height: 1.5px;
+    background: var(--teal-light);
+    transition: width 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  .svc-intro__link:hover::after {
+    width: 84px;
+  }
+
+  .svc-arrows {
+    display: flex;
+    gap: 10px;
+    margin-top: 26px;
+  }
+  @media (min-width: 1200px) {
+    .svc-arrows {
+      position: absolute;
+      right: -70px;
+      top: 0;
+      flex-direction: column;
+      margin: 0;
+    }
+  }
+  .circ {
     display: grid;
     place-items: center;
-    width: 40px;
-    height: 40px;
+    width: 46px;
+    height: 46px;
     border-radius: 50%;
-    border: 1px solid var(--line-strong);
-    color: var(--ink);
-    transition: transform 0.5s var(--ease), background-color 0.3s, color 0.3s, border-color 0.3s;
+    border: 1.5px solid var(--teal-light);
+    background: transparent;
+    color: var(--on-night);
+    cursor: pointer;
+    transition: background-color 0.25s, color 0.25s, border-color 0.25s;
   }
-  .svc__go :global(.icon) {
-    width: 18px;
-    height: 18px;
+  @media (min-width: 1200px) {
+    .circ {
+      border-color: var(--ink);
+      color: var(--ink);
+      background: var(--paper);
+    }
   }
-  .svc__row:hover .svc__go {
-    transform: rotate(45deg);
+  .circ:hover {
     background: var(--ink);
     border-color: var(--ink);
     color: #fff;
   }
-  .svc__name {
-    grid-column: 3 / 6;
-    font-family: var(--serif);
-    font-size: clamp(22px, 1.9vw, 27px);
-    line-height: 1.2;
-    letter-spacing: -0.008em;
+  .circ svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.2;
   }
-  .svc__badge {
-    display: inline-block;
-    margin-left: 10px;
-    padding: 4px 8px;
-    vertical-align: 4px;
-    font-family: var(--sans);
-    font-size: 10.5px;
+
+  /* Card track */
+  .svc-track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 88%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    background: #fff;
+  }
+  .svc-track::-webkit-scrollbar {
+    display: none;
+  }
+  .svc-track:focus-visible {
+    outline-offset: 4px;
+  }
+  @media (min-width: 700px) {
+    .svc-track {
+      grid-auto-columns: 50%;
+    }
+  }
+  @media (min-width: 1024px) {
+    .svc-track {
+      order: 1;
+    }
+  }
+  .svc-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    scroll-snap-align: start;
+    background: #fff;
+    border-right: 1px solid var(--line);
+  }
+  .svc-media {
+    position: relative;
+    aspect-ratio: 4 / 3;
+  }
+  .svc-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.8) contrast(1.03);
+  }
+  .svc-tag {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 50%);
+    padding: 8px 18px;
+    white-space: nowrap;
+    background: var(--night);
+    color: var(--teal-light);
+    font-size: 11.5px;
     font-weight: 500;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--teal-deep);
-    border: 1px solid rgba(14, 116, 144, 0.4);
-    border-radius: var(--radius);
   }
-  .svc__body {
-    grid-column: 6 / 12;
-    color: var(--ink-soft);
-    max-width: 60ch;
+  .svc-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 40px 28px 34px;
+    text-align: center;
   }
-  .svc__row--start .svc__name {
-    color: var(--teal-deep);
+  .svc-tick {
+    width: 1.5px;
+    height: 24px;
+    margin: 0 auto 20px;
+    background: var(--ink);
   }
-  .services__foot {
-    margin-top: 56px;
-    row-gap: 32px;
-    align-items: center;
-  }
-  .services__note {
-    grid-column: 2 / 8;
+  .svc-body h3 {
+    margin-bottom: 12px;
     font-family: var(--serif);
-    font-size: clamp(20px, 1.8vw, 24px);
-    line-height: 1.4;
-    text-wrap: pretty;
+    font-size: 23px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
   }
-  .services__cta {
-    grid-column: 9 / 13;
-    justify-self: end;
+  .svc-icon {
+    display: block;
+    width: 26px;
+    height: 26px;
+    margin: 0 auto 12px;
+    color: var(--teal);
+  }
+  .svc-icon :global(.icon) {
+    width: 100%;
+    height: 100%;
+  }
+  .svc-sub {
+    margin-bottom: 14px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink-soft);
   }
 
-  @media (max-width: 899px) {
-    .services__intro {
-      margin-top: 20px;
-    }
-    .svc__row {
-      grid-template-columns: 1fr 40px;
-      align-items: start;
-    }
-    .svc__index,
-    .svc__name,
-    .svc__body {
-      grid-column: 1;
-    }
-    .svc__go {
-      grid-column: 2;
-      grid-row: 1;
-    }
-    .services__cta {
-      justify-self: start;
+  /* "What's included" expander: the arrowhead travels down a dotted track */
+  .zip {
+    text-align: left;
+  }
+  .zip-body {
+    overflow: hidden;
+    transition: max-height 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  :global(.js) .zip:not(.is-open) .zip-body {
+    -webkit-mask-image: linear-gradient(180deg, #000 40%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 40%, transparent 100%);
+  }
+  .zip-body ul {
+    list-style: none;
+    margin: 6px 0 18px;
+    border-top: 1px solid var(--line);
+  }
+  .zip-body li {
+    position: relative;
+    padding: 10px 0 10px 22px;
+    border-bottom: 1px solid var(--line);
+    font-size: 14.5px;
+    line-height: 1.5;
+  }
+  .zip-body li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 16px;
+    width: 9px;
+    height: 9px;
+    background: var(--mist);
+    border: 1.5px solid var(--teal);
+  }
+  .receive {
+    margin-bottom: 6px;
+    padding: 14px 16px;
+    background: var(--paper);
+    border-left: 3px solid var(--teal);
+    font-size: 14.5px;
+    line-height: 1.6;
+  }
+  .zip-toggle {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 44px;
+    margin: 6px auto 0;
+    padding: 10px 0;
+    background: none;
+    border: 0;
+    color: var(--ink);
+    cursor: pointer;
+    font: inherit;
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .zip-track {
+    position: relative;
+    width: 22px;
+    height: 32px;
+    flex: none;
+  }
+  .zip-track::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    transform: translateX(-50%);
+    background: repeating-linear-gradient(180deg, var(--teal) 0 3px, transparent 3px 6px);
+    opacity: 0.45;
+    transition: opacity 0.3s;
+  }
+  .zip-pull {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 14px;
+    color: var(--teal);
+    transform: translateX(-50%) rotate(180deg);
+    transition: top 0.5s cubic-bezier(0.65, 0, 0.35, 1), transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  .zip-pull :global(svg) {
+    width: 100%;
+    height: auto;
+  }
+  .zip.is-open .zip-pull {
+    top: calc(100% - 16px);
+    transform: translateX(-50%) rotate(0deg);
+  }
+  .zip.is-open .zip-track::before {
+    opacity: 1;
+  }
+  .svc-btn {
+    margin-top: auto;
+    padding-top: 22px;
+  }
+  .svc-btn .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .zip-body,
+    .zip-pull {
+      transition: none;
     }
   }
 </style>
+
+<script>
+  // "What's included" expanders: collapsed to a teaser height, expand to full.
+  const TEASER = 96;
+  document.querySelectorAll<HTMLElement>('[data-zip]').forEach((zip) => {
+    const body = zip.querySelector<HTMLElement>('[data-zip-body]');
+    const toggle = zip.querySelector<HTMLButtonElement>('[data-zip-toggle]');
+    const label = zip.querySelector<HTMLElement>('.zip-label');
+    if (!body || !toggle || !label) return;
+    body.style.maxHeight = `${TEASER}px`;
+    toggle.addEventListener('click', () => {
+      const open = !zip.classList.contains('is-open');
+      zip.classList.toggle('is-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      label.textContent = (open ? label.dataset.less : label.dataset.more) || '';
+      body.style.maxHeight = open ? `${body.scrollHeight}px` : `${TEASER}px`;
+    });
+    window.addEventListener('resize', () => {
+      if (zip.classList.contains('is-open')) body.style.maxHeight = `${body.scrollHeight}px`;
+    });
+  });
+
+  // Carousel arrows (native swipe and scroll-snap do the rest).
+  const track = document.querySelector<HTMLElement>('[data-svc-track]');
+  if (track) {
+    const step = () => track.querySelector<HTMLElement>('.svc-card')?.getBoundingClientRect().width || 300;
+    document.querySelector('[data-svc-prev]')?.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
+    document.querySelector('[data-svc-next]')?.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
+  }
+</script>

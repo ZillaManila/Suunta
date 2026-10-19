@@ -33,16 +33,32 @@ import { site, steps } from '../data/site';
     </div>
 
     <div class="approach__steps">
-      <ol class="steps" role="list">
+      <ol class="steps" role="list" data-accordion data-single>
         {steps.map((s, i) => (
-          <li class="step has-badge" data-reveal>
+          <li class:list={['step has-badge', { 'is-open': i === 0 }]} data-reveal data-acc-item>
             <span class="step__node" aria-hidden="true"><Icon name={s.icon} /></span>
             <div class="step__content">
               <h3 class="step__title">
-                <span class="step__name">{i + 1}. {s.name}.</span>
-                <em>{s.title}</em>
+                <button
+                  class="step__trigger"
+                  type="button"
+                  data-acc-trigger
+                  aria-expanded={i === 0 ? 'true' : 'false'}
+                  aria-controls={`step-panel-${i}`}
+                  id={`step-trigger-${i}`}
+                >
+                  <span class="step__text">
+                    <span class="step__name">{i + 1}. {s.name}.</span>
+                    <em>{s.title}</em>
+                  </span>
+                  <span class="acc-toggle" aria-hidden="true"></span>
+                </button>
               </h3>
-              <p class="step__body">{s.body}</p>
+              <div class="step__panel" id={`step-panel-${i}`} role="region" aria-labelledby={`step-trigger-${i}`} data-acc-panel>
+                <div>
+                  <p class="step__body">{s.body}</p>
+                </div>
+              </div>
             </div>
           </li>
         ))}
@@ -128,7 +144,7 @@ import { site, steps } from '../data/site';
     display: grid;
     grid-template-columns: 56px 1fr;
     gap: clamp(20px, 2.6vw, 36px);
-    padding-bottom: clamp(44px, 5vw, 64px);
+    padding-bottom: 28px;
   }
   .step__node {
     position: relative;
@@ -156,11 +172,11 @@ import { site, steps } from '../data/site';
     border: 1px solid var(--teal);
     opacity: 0;
   }
-  .step.is-in .step__node {
+  .step.is-open .step__node {
     background: var(--teal);
     color: #fff;
   }
-  .step.is-in .step__node::after {
+  .step.is-open .step__node::after {
     animation: node-ring 1.4s var(--ease) 0.3s;
   }
   @keyframes node-ring {
@@ -180,7 +196,39 @@ import { site, steps } from '../data/site';
     transform: rotate(-8deg);
   }
   .step__content {
-    padding-top: 12px;
+    padding-top: 4px;
+    border-bottom: 1px solid var(--line);
+  }
+  .step:last-child .step__content {
+    border-bottom: 0;
+  }
+  .step__trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+    padding: 6px 0 22px;
+    background: none;
+    border: 0;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+  .step__text {
+    display: block;
+  }
+  .step__trigger:hover em {
+    color: var(--teal-deep);
+  }
+  .step__title em {
+    transition: color 0.3s;
+    background: linear-gradient(transparent 64%, var(--mist) 64%) left / 0% 100% no-repeat;
+    transition: background-size 0.7s var(--ease), color 0.3s;
+  }
+  .step.is-open .step__title em {
+    background-size: 100% 100%;
   }
   .step__title {
     font-family: var(--serif);
@@ -202,7 +250,8 @@ import { site, steps } from '../data/site';
     font-weight: 360;
   }
   .step__body {
-    margin-top: 14px;
+    margin: 0 0 26px;
+    padding-right: 60px;
     color: var(--ink-soft);
     max-width: 58ch;
   }
