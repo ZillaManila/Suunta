@@ -1,4 +1,6 @@
 ---
+import ImageSlot from './ImageSlot.astro';
+import Icon from './Icon.astro';
 ---
 
 <section class="section adapt" id="adaptation" aria-labelledby="adapt-title">
@@ -7,7 +9,7 @@
 
     <div class="grid adapt__top">
       <div class="adapt__copy">
-        <h2 class="h2" id="adapt-title" data-reveal style="--i:1">
+        <h2 class="h2" id="adapt-title" data-split>
           The future of work is not a one-time redesign problem. <em>It is an ongoing adaptation problem.</em>
         </h2>
         <p class="lede adapt__lede" data-reveal style="--i:2">
@@ -17,30 +19,39 @@
       </div>
 
       <aside class="adapt__stat" data-reveal style="--i:2">
-        <svg class="adapt__loop" viewBox="0 0 120 120" aria-hidden="true">
-          <circle cx="60" cy="60" r="52" />
-          <path d="M60 8 A52 52 0 1 1 15 34" />
-          <path class="adapt__loop-head" d="M6.7 38.4 L15 34 L15.3 43.4" />
-        </svg>
-        <p class="adapt__num">2×</p>
+        <div class="adapt__orbit" aria-hidden="true">
+          <svg viewBox="0 0 200 200">
+            <circle class="adapt__ring" cx="100" cy="100" r="88" />
+            <circle class="adapt__ring adapt__ring--dash" cx="100" cy="100" r="66" />
+            <g class="adapt__spin">
+              <path class="adapt__arc" d="M100 12 A88 88 0 0 1 188 100" />
+              <circle class="adapt__dot" cx="188" cy="100" r="5" />
+            </g>
+          </svg>
+          <p class="adapt__num"><span data-count="2" data-suffix="">2</span>×</p>
+        </div>
         <p class="adapt__text">
           Gartner forecasts that by 2028, organizations that establish continuous work redesign as a core
           capability will be twice as likely to sustain AI-driven work transformation. Gartner describes this
           capability as the ongoing adaptation of workflows, decision rights, jobs, and talent deployment as AI
           capabilities and business priorities evolve.
         </p>
-        <p class="cite adapt__cite">Gartner forecast, September 15, 2026.</p>
+        <p class="cite adapt__cite"><span class="chip"><Icon name="book-open-text" /> Gartner forecast, September 15, 2026.</span></p>
       </aside>
     </div>
 
     <div class="grid adapt__roles">
-      <h3 class="h3 adapt__roles-title" data-reveal>Roles and rewards that support the redesigned work</h3>
-      <p class="body adapt__roles-body" data-reveal style="--i:1">
-        Where deeper redesign is required, I draw on my experience in workforce architecture to clarify how roles,
-        skills, human judgment, decision rights, system access, governance, and rewards support the new workflow.
-        The aim is to help people understand their contribution and give leaders a practical basis for adapting the
-        work as AI capabilities evolve.
-      </p>
+      <ImageSlot label="Roles, skills and workflow redesign session" ratio="16 / 10" tone="mist" class="adapt__img" />
+      <div class="adapt__roles-copy">
+        <span class="adapt__roles-icon" data-reveal><Icon name="arrows-clockwise" /></span>
+        <h3 class="h3" data-reveal>Roles and rewards that support the redesigned work</h3>
+        <p class="body adapt__roles-body" data-reveal style="--i:1">
+          Where deeper redesign is required, I draw on my experience in workforce architecture to clarify how
+          roles, skills, human judgment, decision rights, system access, governance, and rewards support the new
+          workflow. The aim is to help people understand their contribution and give leaders a practical basis for
+          adapting the work as AI capabilities evolve.
+        </p>
+      </div>
     </div>
   </div>
 </section>
@@ -49,7 +60,7 @@
   .adapt__top {
     margin-top: 28px;
     row-gap: 56px;
-    align-items: start;
+    align-items: center;
   }
   .adapt__copy {
     grid-column: 1 / 8;
@@ -58,65 +69,100 @@
     margin-top: 32px;
   }
   .adapt__stat {
-    position: relative;
     grid-column: 9 / 13;
-    padding: 36px 0 0;
-    border-top: 1px solid var(--line-strong);
   }
-  .adapt__loop {
+  .adapt__orbit {
+    position: relative;
+    width: min(260px, 100%);
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+  }
+  .adapt__orbit svg {
     position: absolute;
-    right: 0;
-    top: 36px;
-    width: 76px;
-    height: 76px;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .adapt__ring {
+    fill: none;
+    stroke: var(--line-strong);
+    stroke-width: 1;
+  }
+  .adapt__ring--dash {
+    stroke: var(--teal);
+    stroke-dasharray: 2 6;
+    opacity: 0.5;
+  }
+  .adapt__spin {
+    transform-origin: 100px 100px;
+    animation: orbit 9s linear infinite;
+  }
+  @keyframes orbit {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  .adapt__arc {
     fill: none;
     stroke: var(--teal);
-    stroke-width: 1.2;
+    stroke-width: 2;
+    stroke-linecap: round;
   }
-  .adapt__loop circle {
-    opacity: 0.18;
+  .adapt__dot {
+    fill: var(--teal);
   }
   .adapt__num {
+    position: relative;
     font-family: var(--serif);
     font-weight: 300;
-    font-size: clamp(88px, 10vw, 140px);
-    line-height: 0.9;
+    font-size: clamp(80px, 8vw, 116px);
+    line-height: 1;
     letter-spacing: -0.04em;
     color: var(--teal-deep);
   }
   .adapt__text {
-    margin-top: 24px;
+    margin-top: 28px;
     font-size: 15.5px;
     color: var(--ink-soft);
   }
   .adapt__cite {
-    margin-top: 16px;
+    margin-top: 18px;
   }
   .adapt__roles {
     margin-top: clamp(80px, 10vw, 136px);
-    padding-top: 40px;
-    border-top: 1px solid var(--line);
-    row-gap: 20px;
+    row-gap: 40px;
+    align-items: center;
   }
-  .adapt__roles-title {
-    grid-column: 1 / 5;
+  .adapt__roles :global(.adapt__img) {
+    grid-column: 1 / 7;
+  }
+  .adapt__roles-copy {
+    grid-column: 8 / 13;
+  }
+  .adapt__roles-icon {
+    display: inline-grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    margin-bottom: 24px;
+    border-radius: 50%;
+    border: 1px solid rgba(14, 116, 144, 0.35);
+    color: var(--teal-deep);
+  }
+  .adapt__roles-icon :global(.icon) {
+    width: 26px;
+    height: 26px;
+    animation: orbit 12s linear infinite;
   }
   .adapt__roles-body {
-    grid-column: 6 / 12;
-  }
-
-  :global(.js) .adapt__loop path:first-of-type {
-    stroke-dasharray: 330;
-    stroke-dashoffset: 330;
-    transition: stroke-dashoffset 1.6s cubic-bezier(0.65, 0, 0.35, 1) 0.3s;
-  }
-  :global(.js) .adapt__stat.is-in .adapt__loop path:first-of-type {
-    stroke-dashoffset: 0;
+    margin-top: 20px;
   }
   @media (prefers-reduced-motion: reduce) {
-    :global(.js) .adapt__loop path:first-of-type {
-      stroke-dashoffset: 0;
-      transition: none;
+    .adapt__spin,
+    .adapt__roles-icon :global(.icon) {
+      animation: none;
     }
   }
 </style>

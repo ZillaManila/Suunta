@@ -1,34 +1,39 @@
 ---
-import { credentials } from '../data/site';
+import ImageSlot from './ImageSlot.astro';
+import IconBadge from './IconBadge.astro';
+import Icon from './Icon.astro';
+import { credentials, site } from '../data/site';
 ---
 
 <section class="section section--tint about" id="about" aria-labelledby="about-title">
   <div class="wrap">
     <div class="grid about__grid">
-
       <div class="about__intro">
         <p class="eyebrow" data-reveal>About John Hyttinen</p>
         <p class="about__role" data-reveal style="--i:1">Founder and Human-Centered AI Consultant, Suunta Labs Inc.</p>
-        <h2 class="h2 about__title" id="about-title" data-reveal style="--i:2">
+        <h2 class="h2 about__title" id="about-title" data-split>
           Global HR and Total Rewards Experience as an <em>AI Transformation Advantage</em>
         </h2>
       </div>
 
-      <figure class="about__portrait" data-reveal>
-        {/* Placeholder: replace with /images/john-hyttinen.jpg (4:5, at least 1200×1500). */}
-        <div class="portrait" role="img" aria-label="Portrait of John Hyttinen (placeholder)">
-          <svg class="portrait__lines" viewBox="0 0 400 500" preserveAspectRatio="none" aria-hidden="true">
-            <path d="M-10 420 C 120 380, 180 300, 230 220 S 330 80, 420 40" />
-            <path d="M-10 470 C 140 430, 210 340, 260 260 S 360 120, 420 90" />
-          </svg>
-          <span class="portrait__initials">JH</span>
-          <span class="portrait__note">Portrait placeholder</span>
+      <div class="about__portrait">
+        {/* Add the portrait as src="/images/john-hyttinen.jpg" (4:5, at least 1200×1500). */}
+        <ImageSlot label="Portrait of John Hyttinen" ratio="4 / 5" tone="navy" parallax={false}>
+          <span class="about__tag">
+            <span class="about__dot"></span>
+            Toronto area, working globally
+          </span>
+        </ImageSlot>
+        <div class="about__caption">
+          <div>
+            <span class="about__name">John Hyttinen</span>
+            <span>Founder &amp; Human-Centered AI Consultant</span>
+          </div>
+          <a class="about__in" href={site.linkedin} target="_blank" rel="noopener noreferrer" aria-label="John Hyttinen on LinkedIn">
+            <Icon name="linkedin-logo" />
+          </a>
         </div>
-        <figcaption class="about__caption">
-          <span class="about__name">John Hyttinen</span>
-          <span>Founder &amp; Human-Centered AI Consultant</span>
-        </figcaption>
-      </figure>
+      </div>
 
       <div class="about__copy">
         <div class="about__text">
@@ -47,8 +52,11 @@ import { credentials } from '../data/site';
 
         <dl class="creds">
           {credentials.map((c, i) => (
-            <div class="creds__group" data-reveal style={`--i:${i}`}>
-              <dt>{c.group}</dt>
+            <div class="creds__group has-badge" data-reveal style={`--i:${i}`}>
+              <dt>
+                <IconBadge name={c.icon} size="sm" />
+                <span>{c.group}</span>
+              </dt>
               {c.items.map((item) => <dd>{item}</dd>)}
             </div>
           ))}
@@ -56,13 +64,15 @@ import { credentials } from '../data/site';
       </div>
     </div>
 
-    <div class="grid why">
-      <div class="why__word" data-reveal>
-        <p class="why__suunta">Suunta</p>
-        <p class="why__say"><span>SOON-tah</span> · direction, in Finnish</p>
-      </div>
-      <div class="why__copy">
-        <h3 class="h3" data-reveal>Why Suunta Labs</h3>
+    <div class="why">
+      <ImageSlot label="Finnish landscape: still water, forest, a clear horizon" ratio="21 / 9" tone="mist" class="why__img">
+        <div class="why__overlay">
+          <p class="why__suunta" data-split>Suunta</p>
+          <p class="why__say"><span>SOON-tah</span> · direction, in Finnish</p>
+        </div>
+      </ImageSlot>
+      <div class="grid why__row">
+        <h3 class="h3 why__title" data-reveal>Why Suunta Labs</h3>
         <p class="body why__body" data-reveal style="--i:1">
           Suunta, pronounced SOON-tah, means direction in Finnish. I chose the name because meaningful
           transformation begins with clarity about the value an organization wants to create and the work that
@@ -76,73 +86,84 @@ import { credentials } from '../data/site';
 
 <style>
   .about__grid {
+    row-gap: 36px;
     align-items: start;
+  }
+  .about__intro,
+  .about__copy {
+    grid-column: 6 / 13;
   }
   .about__portrait {
     grid-column: 1 / 5;
     grid-row: 1 / span 2;
-    margin: 0;
     position: sticky;
-    top: 120px;
+    top: 110px;
   }
-  .portrait {
-    position: relative;
-    aspect-ratio: 4 / 5;
-    overflow: hidden;
-    background: linear-gradient(160deg, var(--ink-2) 0%, var(--night) 100%);
-    border-radius: var(--radius);
-  }
-  .portrait__lines {
+  .about__tag {
     position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    fill: none;
-    stroke: var(--teal-light);
-    stroke-width: 1;
-    opacity: 0.35;
+    top: 16px;
+    left: 16px;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgba(245, 244, 240, 0.9);
+    color: var(--ink);
+    font-size: 11.5px;
+    letter-spacing: 0.04em;
   }
-  .portrait__lines path + path {
-    opacity: 0.5;
-    stroke-dasharray: 2 5;
+  .about__dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--teal);
+    box-shadow: 0 0 0 0 rgba(14, 116, 144, 0.5);
+    animation: live 2.4s ease-out infinite;
   }
-  .portrait__initials {
-    position: absolute;
-    left: 28px;
-    bottom: 22px;
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: clamp(72px, 8vw, 120px);
-    line-height: 1;
-    color: var(--on-night);
-    opacity: 0.9;
-  }
-  .portrait__note {
-    position: absolute;
-    top: 22px;
-    left: 28px;
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--on-night-soft);
+  @keyframes live {
+    to {
+      box-shadow: 0 0 0 9px rgba(14, 116, 144, 0);
+    }
   }
   .about__caption {
     display: flex;
-    flex-direction: column;
-    gap: 2px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
     margin-top: 16px;
     font-size: 14px;
     color: var(--ink-muted);
+  }
+  .about__caption > div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
   }
   .about__name {
     font-family: var(--serif);
     font-size: 19px;
     color: var(--ink);
   }
-
-  .about__intro,
-  .about__copy {
-    grid-column: 6 / 13;
+  .about__in {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--line-strong);
+    color: var(--ink);
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  }
+  .about__in :global(.icon) {
+    width: 20px;
+    height: 20px;
+  }
+  .about__in:hover {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: #fff;
   }
   .about__role {
     margin-top: 14px;
@@ -151,9 +172,6 @@ import { credentials } from '../data/site';
   }
   .about__title {
     margin-top: 28px;
-  }
-  .about__grid {
-    row-gap: 36px;
   }
   .about__text > * + * {
     margin-top: 1.2em;
@@ -165,80 +183,100 @@ import { credentials } from '../data/site';
   }
   .creds__group {
     display: grid;
-    grid-template-columns: minmax(0, 2fr) minmax(0, 5fr);
+    grid-template-columns: minmax(0, 2.4fr) minmax(0, 5fr);
     column-gap: 24px;
     padding: 24px 0;
     border-bottom: 1px solid var(--line);
   }
   .creds dt {
     grid-row: span 3;
-    font-size: 12.5px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    align-self: start;
+    font-size: 12px;
     font-weight: 500;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--teal-deep);
-    padding-top: 3px;
   }
   .creds dd {
     grid-column: 2;
     margin: 0;
+    padding-top: 6px;
     font-size: 15.5px;
     color: var(--ink);
   }
   .creds dd + dd {
-    margin-top: 10px;
+    padding-top: 10px;
   }
 
   .why {
     margin-top: clamp(96px, 12vw, 160px);
-    padding-top: 48px;
-    border-top: 1px solid var(--line);
-    row-gap: 32px;
-    align-items: end;
   }
-  .why__word {
-    grid-column: 1 / 7;
+  .why__overlay {
+    position: absolute;
+    inset: auto 0 0 0;
+    z-index: 2;
+    padding: clamp(24px, 4vw, 56px);
+    padding-bottom: clamp(56px, 6vw, 80px);
   }
   .why__suunta {
     font-family: var(--serif);
     font-weight: 300;
-    font-size: clamp(80px, 12vw, 176px);
+    font-size: clamp(72px, 13vw, 200px);
     line-height: 0.85;
     letter-spacing: -0.045em;
     color: var(--ink);
   }
   .why__say {
-    margin-top: 20px;
+    margin-top: 16px;
     font-size: 14px;
-    color: var(--ink-muted);
+    color: var(--ink-soft);
   }
   .why__say span {
     font-weight: 500;
     letter-spacing: 0.14em;
     color: var(--teal-deep);
   }
-  .why__copy {
-    grid-column: 7 / 13;
+  .why :global(.why__img .slot__chip) {
+    left: auto;
+    right: 14px;
+  }
+  .why__row {
+    margin-top: 48px;
+    row-gap: 16px;
+  }
+  .why__title {
+    grid-column: 1 / 5;
   }
   .why__body {
-    margin-top: 16px;
+    grid-column: 6 / 12;
   }
 
   @media (max-width: 899px) {
     .about__portrait {
       grid-row: auto;
       position: static;
-      max-width: 320px;
+      max-width: 340px;
     }
     .creds__group {
       grid-template-columns: 1fr;
     }
     .creds dt {
       grid-row: auto;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
     .creds dd {
       grid-column: 1;
+    }
+    .why :global(.why__img) {
+      aspect-ratio: 4 / 3 !important;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .about__dot {
+      animation: none;
     }
   }
 </style>

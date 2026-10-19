@@ -1,6 +1,9 @@
 ---
-import { method } from '../data/site';
-const levels = ['Business outcomes', 'Workflow performance', 'The capacity and experience of the people doing the work'];
+import IconBadge from './IconBadge.astro';
+import Icon from './Icon.astro';
+import ImageSlot from './ImageSlot.astro';
+import { method, valueLevels } from '../data/site';
+const tones = ['navy', 'teal', 'stone'] as const;
 ---
 
 <section class="section section--tint method" id="method" aria-labelledby="method-title">
@@ -8,22 +11,33 @@ const levels = ['Business outcomes', 'Workflow performance', 'The capacity and e
     <div class="grid">
       <div class="method__head">
         <p class="eyebrow" data-reveal>The method</p>
-        <h2 class="h2 method__title" id="method-title" data-reveal style="--i:1">
+        <h2 class="h2 method__title" id="method-title" data-split>
           Work <span class="arrow">→</span> Workflow <span class="arrow">→</span> Value
         </h2>
-        <p class="lede method__lede" data-reveal style="--i:2">
-          AI-assisted work is redesigned for value. I begin with the business priority and the work that creates
-          it. The method connects three questions leaders need to answer.
-        </p>
       </div>
+      <p class="lede method__lede" data-reveal style="--i:2">
+        AI-assisted work is redesigned for value. I begin with the business priority and the work that creates it.
+        The method connects three questions leaders need to answer.
+      </p>
     </div>
 
-    <ol class="method__list" role="list">
+    <ol class="stack" role="list">
       {method.map((m, i) => (
-        <li class="method__row" data-reveal style={`--i:${i}`}>
-          <span class="method__index">0{i + 1}</span>
-          <h3 class="method__term">{m.term}</h3>
-          <p class="method__q">{m.question}</p>
+        <li class="card has-badge" style={`--n:${i}`}>
+          <div class="card__copy">
+            <div class="card__top">
+              <IconBadge name={m.icon} size="lg" />
+              <span class="card__index">0{i + 1}<span>/03</span></span>
+            </div>
+            <h3 class="card__term">{m.term}</h3>
+            <p class="card__q">{m.question}</p>
+            {i < method.length - 1 && (
+              <p class="card__next">
+                Next <span class="arrow">→</span> {method[i + 1].term}
+              </p>
+            )}
+          </div>
+          <ImageSlot label={m.image} ratio="4 / 3" tone={tones[i]} class="card__img" />
         </li>
       ))}
     </ol>
@@ -40,10 +54,13 @@ const levels = ['Business outcomes', 'Workflow performance', 'The capacity and e
         </p>
       </div>
       <ol class="levels" role="list" aria-label="Three levels of value">
-        {levels.map((l, i) => (
-          <li class="levels__item" data-reveal style={`--i:${i}`}>
-            <span class="levels__bar" style={`--w:${100 - i * 18}%`}></span>
-            <span class="levels__label">{l}</span>
+        {valueLevels.map((l, i) => (
+          <li class="levels__item has-badge" data-reveal style={`--i:${i}`}>
+            <IconBadge name={l.icon} size="sm" />
+            <span class="levels__body">
+              <span class="levels__label">{l.label}</span>
+              <span class="levels__bar" style={`--w:${100 - i * 16}%`}></span>
+            </span>
           </li>
         ))}
       </ol>
@@ -53,64 +70,102 @@ const levels = ['Business outcomes', 'Workflow performance', 'The capacity and e
 
 <style>
   .method__head {
-    grid-column: 1 / 10;
+    grid-column: 1 / 8;
   }
   .method__title {
     margin-top: 24px;
     font-size: clamp(40px, 6vw, 84px);
   }
   .method__lede {
+    grid-column: 8 / 13;
+    align-self: end;
     margin-top: 28px;
   }
-  .method__list {
+
+  /* Sticky stacking cards */
+  .stack {
     list-style: none;
     margin-top: clamp(64px, 8vw, 104px);
-    border-top: 1px solid var(--line-strong);
   }
-  .method__row {
-    position: relative;
+  .card {
+    position: sticky;
+    top: calc(100px + var(--n) * 28px);
     display: grid;
-    grid-template-columns: 64px minmax(0, 4fr) minmax(0, 7fr);
-    gap: clamp(16px, 2.4vw, 32px);
-    align-items: baseline;
-    padding: clamp(28px, 3.4vw, 44px) 0;
-    border-bottom: 1px solid var(--line);
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: clamp(24px, 4vw, 64px);
+    align-items: stretch;
+    padding: clamp(24px, 3vw, 40px);
+    margin-bottom: clamp(24px, 4vw, 56px);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    box-shadow: 0 -20px 50px -40px rgba(15, 26, 45, 0.35);
+    transform-origin: top center;
   }
-  .method__row::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -1px;
-    height: 1px;
-    width: 100%;
-    background: var(--teal);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.8s var(--ease);
+  .card__copy {
+    display: flex;
+    flex-direction: column;
   }
-  .method__row:hover::after {
-    transform: scaleX(1);
+  .card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
-  .method__index {
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    color: var(--teal);
-  }
-  .method__term {
+  .card__index {
     font-family: var(--serif);
-    font-size: clamp(32px, 3.6vw, 52px);
-    line-height: 1;
-    letter-spacing: -0.02em;
+    font-size: 22px;
+    color: var(--teal-deep);
   }
-  .method__q {
+  .card__index span {
+    color: var(--ink-muted);
+    font-size: 15px;
+    margin-left: 2px;
+  }
+  .card__term {
+    margin-top: auto;
+    padding-top: 48px;
+    font-family: var(--serif);
+    font-weight: 340;
+    font-size: clamp(48px, 6vw, 88px);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+  }
+  .card__q {
+    margin-top: 20px;
     font-size: clamp(18px, 1.5vw, 21px);
     line-height: 1.5;
     color: var(--ink-soft);
-    max-width: 52ch;
+    max-width: 44ch;
   }
+  .card__next {
+    margin-top: 28px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  /* Cards shrink slightly as the next one slides over them */
+  @supports (animation-timeline: view()) {
+    .card {
+      animation: card-recede linear both;
+      animation-timeline: view();
+      animation-range: exit-crossing 0% exit-crossing 100%;
+    }
+    .card:last-child {
+      animation: none;
+    }
+    @keyframes card-recede {
+      to {
+        transform: scale(0.94);
+        filter: brightness(0.94);
+      }
+    }
+  }
+
   .method__value {
-    margin-top: clamp(64px, 8vw, 104px);
+    margin-top: clamp(56px, 7vw, 96px);
     row-gap: 48px;
     align-items: start;
   }
@@ -124,28 +179,53 @@ const levels = ['Business outcomes', 'Workflow performance', 'The capacity and e
     grid-column: 8 / 13;
     list-style: none;
   }
+  .levels__item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
   .levels__item + .levels__item {
-    margin-top: 22px;
+    margin-top: 20px;
+  }
+  .levels__body {
+    flex: 1;
+  }
+  .levels__label {
+    display: block;
+    font-size: 14.5px;
+    color: var(--ink);
   }
   .levels__bar {
     display: block;
     height: 2px;
-    width: var(--w);
-    background: linear-gradient(90deg, var(--teal), rgba(14, 116, 144, 0.25));
-  }
-  .levels__label {
-    display: block;
     margin-top: 10px;
-    font-size: 14px;
-    color: var(--ink);
+    width: var(--w);
+    background: linear-gradient(90deg, var(--teal), rgba(14, 116, 144, 0.2));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+  }
+  .levels__item.is-in .levels__bar,
+  :global(html:not(.js)) .levels__bar {
+    transform: none;
   }
 
-  @media (max-width: 699px) {
-    .method__row {
-      grid-template-columns: 40px 1fr;
+  @media (max-width: 899px) {
+    .card {
+      position: relative;
+      top: auto;
+      grid-template-columns: 1fr;
     }
-    .method__q {
-      grid-column: 2;
+    .card__term {
+      padding-top: 32px;
+    }
+    .card :global(.card__img) {
+      grid-row: 1;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card {
+      animation: none;
     }
   }
 </style>

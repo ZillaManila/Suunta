@@ -1,0 +1,79 @@
+---
+import Icon from './Icon.astro';
+interface Props {
+  name: string;
+  tone?: 'line' | 'solid' | 'night';
+  size?: 'sm' | 'md' | 'lg';
+  class?: string;
+}
+const { name, tone = 'line', size = 'md', class: className } = Astro.props;
+---
+
+<span class:list={['badge', `badge--${tone}`, `badge--${size}`, className]} aria-hidden="true">
+  <Icon name={name} />
+</span>
+
+<style>
+  .badge {
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    flex: none;
+    border-radius: 50%;
+    color: var(--teal-deep);
+    border: 1px solid rgba(14, 116, 144, 0.35);
+    background: rgba(14, 116, 144, 0.06);
+    transition: transform 0.6s var(--ease), background-color 0.4s var(--ease), color 0.4s var(--ease),
+      border-color 0.4s var(--ease);
+  }
+  .badge::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 1px dashed rgba(14, 116, 144, 0.28);
+    opacity: 0;
+    transform: scale(0.85) rotate(0deg);
+    transition: opacity 0.4s var(--ease), transform 0.8s var(--ease);
+  }
+  .badge--sm {
+    width: 36px;
+    height: 36px;
+  }
+  .badge--md {
+    width: 52px;
+    height: 52px;
+  }
+  .badge--lg {
+    width: 72px;
+    height: 72px;
+  }
+  .badge :global(.icon) {
+    width: 50%;
+    height: 50%;
+    transition: transform 0.6s var(--ease);
+  }
+  .badge--solid {
+    background: var(--teal);
+    border-color: var(--teal);
+    color: #fff;
+  }
+  .badge--night {
+    color: var(--teal-light);
+    border-color: rgba(107, 184, 201, 0.4);
+    background: rgba(107, 184, 201, 0.08);
+  }
+  :global(.has-badge:hover) .badge,
+  :global(.has-badge:focus-within) .badge {
+    background: var(--teal);
+    border-color: var(--teal);
+    color: #fff;
+  }
+  :global(.has-badge:hover) .badge::after {
+    opacity: 1;
+    transform: scale(1) rotate(45deg);
+  }
+  :global(.has-badge:hover) .badge :global(.icon) {
+    transform: scale(1.08) rotate(-6deg);
+  }
+</style>

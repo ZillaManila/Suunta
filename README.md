@@ -32,12 +32,25 @@ the approach timeline, and links.
 - Colour: warm paper `#f5f4f0`, navy ink `#14213a` / `#1b2a4a`, one accent teal `#0e7490`.
   All tokens live at the top of `src/styles/global.css`.
 
+## Icons, images and motion
+
+- **Icons**: Phosphor "light" set (`@phosphor-icons/core`). Use `<Icon name="compass" />` or the round
+  `<IconBadge name="compass" />`. Browse names at [phosphoricons.com](https://phosphoricons.com).
+- **Images**: every image position is an `<ImageSlot>` (`src/components/ImageSlot.astro`). Without `src` it
+  shows a designed placeholder labelled with the intended shot. To add a photo, put it in `public/images/`
+  and pass `src="/images/your-photo.jpg" alt="..."`. The layout, wipe-in reveal and parallax stay the same.
+- **Motion** (`src/scripts/motion.ts` + component styles): word-by-word headline reveals, image wipes with
+  parallax, counting statistics, a slow marquee, stacking method cards, a drawing approach timeline, magnetic
+  buttons, and a header that hides while scrolling down. All of it is switched off for visitors who set
+  "reduce motion" in their system settings.
+
 ## Page sections
 
 | Section | File |
 | --- | --- |
 | Header + mobile menu | `src/components/Header.astro` |
-| Hero | `src/components/Hero.astro` |
+| Hero + image band | `src/components/Hero.astro` |
+| Marquee band | `src/components/Marquee.astro` |
 | The executive opportunity (McKinsey stats) | `src/components/Opportunity.astro` |
 | The method: Work → Workflow → Value | `src/components/Method.astro` |
 | Built to keep adapting (Gartner 2×) | `src/components/Adaptation.astro` |
@@ -58,8 +71,8 @@ the approach timeline, and links.
 
 ## Placeholders to replace
 
-- **Portrait**: `src/components/About.astro` shows a styled placeholder. Add a 4:5 photo (at least
-  1200×1500) to `public/images/` and swap the `.portrait` block for an `<img>`.
+- **Photos**: 11 `<ImageSlot>` placeholders across the page, each labelled with the shot it needs (portrait,
+  headshot, working sessions, workflow mapping, Finnish landscape...). Pass `src` to each when photos arrive.
 - **Logo**: `src/components/Mark.astro` and `public/favicon.svg` are a vector redraw of the draft arrowhead.
   Replace the path with the final logo when available.
 - **Share image**: `public/images/og.png`, regenerated with `npm run render:og` (`tools/render-og.mjs`).

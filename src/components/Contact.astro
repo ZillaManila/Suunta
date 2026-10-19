@@ -1,5 +1,8 @@
 ---
 import ArrowIcon from './ArrowIcon.astro';
+import Icon from './Icon.astro';
+import IconBadge from './IconBadge.astro';
+import ImageSlot from './ImageSlot.astro';
 import { bring, site } from '../data/site';
 ---
 
@@ -7,7 +10,7 @@ import { bring, site } from '../data/site';
   <div class="wrap grid">
     <div class="contact__main">
       <p class="eyebrow" data-reveal>Find your direction</p>
-      <h2 class="contact__title" id="contact-title" data-reveal style="--i:1">
+      <h2 class="contact__title" id="contact-title" data-split>
         Begin With <em>Direction</em>
       </h2>
       <p class="lede contact__lede" data-reveal style="--i:2">
@@ -19,24 +22,31 @@ import { bring, site } from '../data/site';
         readiness.
       </p>
       <div class="contact__cta" data-reveal style="--i:4">
-        <a class="btn btn--light" href={site.bookingUrl}>Book a Direction Call <ArrowIcon /></a>
+        <a class="btn btn--light" href={site.bookingUrl} data-magnetic>Book a Direction Call <ArrowIcon /></a>
       </div>
     </div>
 
     <aside class="contact__bring" data-reveal style="--i:2">
+      <div class="contact__person">
+        <ImageSlot label="John, headshot" ratio="1 / 1" tone="teal" parallax={false} class="contact__avatar" />
+        <div>
+          <p class="contact__person-name">John Hyttinen</p>
+          <p class="contact__person-role">Founder, Suunta Labs Inc.</p>
+        </div>
+      </div>
       <p class="contact__bring-title">You may want to bring:</p>
       <ol role="list">
-        {bring.map((b, i) => (
-          <li>
-            <span>{String(i + 1).padStart(2, '0')}</span>
-            {b}
+        {bring.map((b) => (
+          <li class="has-badge">
+            <IconBadge name={b.icon} tone="night" size="sm" />
+            <span class="contact__bring-text">{b.text}</span>
           </li>
         ))}
       </ol>
       <div class="contact__direct">
-        <a href={`mailto:${site.email}`}>{site.email}</a>
-        <a href={site.linkedin} target="_blank" rel="noopener noreferrer">{site.linkedinLabel}</a>
-        <span>{site.location}</span>
+        <a href={`mailto:${site.email}`}><Icon name="envelope-simple" />{site.email}</a>
+        <a href={site.linkedin} target="_blank" rel="noopener noreferrer"><Icon name="linkedin-logo" />{site.linkedinLabel}</a>
+        <span><Icon name="map-pin" />{site.location}</span>
       </div>
     </aside>
   </div>
@@ -44,7 +54,35 @@ import { bring, site } from '../data/site';
 
 <style>
   .contact {
+    position: relative;
+    overflow: hidden;
     padding-bottom: clamp(80px, 10vw, 136px);
+  }
+  .contact::before {
+    /* faint compass rose behind the headline */
+    content: '';
+    position: absolute;
+    width: 900px;
+    height: 900px;
+    left: -280px;
+    top: -260px;
+    border-radius: 50%;
+    background: repeating-radial-gradient(circle, rgba(107, 184, 201, 0.09) 0 1px, transparent 1px 48px);
+    animation: contact-breathe 14s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+  @keyframes contact-breathe {
+    to {
+      transform: scale(1.08) rotate(8deg);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .contact::before {
+      animation: none;
+    }
+  }
+  .contact .wrap {
+    position: relative;
   }
   .contact__main {
     grid-column: 1 / 8;
@@ -87,23 +125,40 @@ import { bring, site } from '../data/site';
   .contact__bring ol {
     list-style: none;
   }
+  .contact__person {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+  .contact__person :global(.contact__avatar) {
+    width: 64px;
+    flex: none;
+    border-radius: 50%;
+  }
+  .contact__person :global(.contact__avatar .slot__chip) {
+    display: none;
+  }
+  .contact__person-name {
+    font-family: var(--serif);
+    font-size: 21px;
+    color: var(--on-night);
+  }
+  .contact__person-role {
+    font-size: 13.5px;
+    color: var(--on-night-soft);
+  }
   .contact__bring li {
-    display: grid;
-    grid-template-columns: 36px 1fr;
-    padding: 18px 0;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 0;
     border-bottom: 1px solid var(--line-night);
     font-family: var(--serif);
     font-size: 19px;
     line-height: 1.4;
   }
-  .contact__bring li span {
-    padding-top: 4px;
-    font-family: var(--sans);
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    color: var(--teal-light);
-  }
+
   .contact__direct {
     display: flex;
     flex-direction: column;
@@ -111,6 +166,17 @@ import { bring, site } from '../data/site';
     margin-top: 32px;
     font-size: 14.5px;
     color: var(--on-night-soft);
+  }
+  .contact__direct a,
+  .contact__direct span {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .contact__direct :global(.icon) {
+    width: 18px;
+    height: 18px;
+    color: var(--teal-light);
   }
   .contact__direct a {
     color: var(--on-night);

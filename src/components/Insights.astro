@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro';
 import { insights } from '../data/site';
 ---
 
@@ -9,7 +10,7 @@ import { insights } from '../data/site';
         <p class="eyebrow" data-reveal>Executive insights</p>
       </div>
       <div class="insights__intro">
-        <h2 class="h2" id="insights-title" data-reveal>Executive Insights on AI Adoption and Value</h2>
+        <h2 class="h2" id="insights-title" data-split>Executive Insights on AI Adoption and Value</h2>
         <p class="lede insights__lede" data-reveal style="--i:1">
           AI is changing quickly. These concise briefs translate current research into practical questions for
           leaders who want AI adoption to create measurable business value.
@@ -25,8 +26,15 @@ import { insights } from '../data/site';
       {insights.map((b, i) => (
         <details class="brief" data-reveal open={i === 0}>
           <summary class="brief__summary">
-            <span class="brief__index">{String(i + 1).padStart(2, '0')}</span>
+            <span class="brief__index">
+              <span class="brief__icon"><Icon name="book-open-text" /></span>
+              {String(i + 1).padStart(2, '0')}
+            </span>
             <span class="brief__heading">
+              <span class="brief__meta">
+                <span class="chip">{b.publisher}</span>
+                <span class="brief__kind">Executive brief</span>
+              </span>
               <span class="brief__title">{b.title}</span>
               <span class="brief__question">{b.question}</span>
             </span>
@@ -101,11 +109,49 @@ import { insights } from '../data/site';
     display: none;
   }
   .brief__index {
-    padding-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-top: 2px;
     font-size: 13px;
     font-weight: 500;
     letter-spacing: 0.1em;
     color: var(--teal);
+  }
+  .brief__icon {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(14, 116, 144, 0.35);
+    color: var(--teal-deep);
+    transition: background-color 0.4s var(--ease), color 0.4s var(--ease);
+  }
+  .brief__icon :global(.icon) {
+    width: 22px;
+    height: 22px;
+  }
+  .brief__summary:hover .brief__icon,
+  .brief[open] .brief__icon {
+    background: var(--teal);
+    border-color: var(--teal);
+    color: #fff;
+  }
+  .brief__meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .brief__meta .chip {
+    padding: 4px 10px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .brief__kind {
+    font-size: 12px;
+    color: var(--ink-muted);
   }
   .brief__heading {
     display: flex;
@@ -245,7 +291,8 @@ import { insights } from '../data/site';
     }
     .brief__index {
       grid-column: 1 / -1;
-      padding-top: 0;
+      flex-direction: row;
+      align-items: center;
     }
     .brief__body {
       grid-template-columns: 1fr;

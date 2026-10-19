@@ -1,44 +1,56 @@
 ---
+import ImageSlot from './ImageSlot.astro';
+import Icon from './Icon.astro';
 import { stats } from '../data/site';
 ---
 
 <section class="section opp" id="opportunity" aria-labelledby="opp-title">
   <div class="wrap">
     <div class="grid opp__head">
-      <div class="opp__label">
+      <div class="opp__side">
         <p class="eyebrow" data-reveal>The executive opportunity</p>
+        <ImageSlot label="Leaders reviewing AI results" ratio="4 / 5" tone="stone" class="opp__img" />
       </div>
       <div class="opp__intro">
-        <h2 class="h2" id="opp-title" data-reveal>From AI Activity to <em>Business Value</em></h2>
+        <h2 class="h2" id="opp-title" data-split>From AI Activity to <em>Business Value</em></h2>
         <p class="lede opp__lede" data-reveal style="--i:1">
           AI activity is expanding across organizations. The executive opportunity is to translate individual
           gains and promising use cases into measurable business performance.
         </p>
+
+        <p class="opp__kicker" data-reveal>
+          <span class="chip"><Icon name="book-open-text" /> McKinsey, The State of AI in 2026</span>
+          <span>McKinsey's 2026 global survey found:</span>
+        </p>
+
+        <ul class="opp__stats" role="list">
+          {stats.map((s, i) => (
+            <li class="stat" data-reveal style={`--i:${i}`}>
+              <p class="stat__value" aria-label={s.label ?? s.value}>
+                {s.prefix && <span class="stat__prefix">{s.prefix}</span>}
+                {s.value.endsWith('%') ? (
+                  <span data-count={parseInt(s.value)} data-suffix="%">{s.value}</span>
+                ) : (
+                  <span>{s.value}</span>
+                )}
+              </p>
+              <span class="stat__bar" style={`--w:${s.value.endsWith('%') ? parseInt(s.value) : 74}%`}></span>
+              <p class="stat__text">{s.text}</p>
+            </li>
+          ))}
+        </ul>
+
+        <p class="cite opp__cite" data-reveal>
+          McKinsey, The State of AI in 2026: On the Road to ROI, August 2026. 1,719 participants in 97 countries,
+          surveyed May 4 to June 8, 2026. AI high performers are a small subgroup of 92 respondents, and the workflow
+          finding is an association within that group. The profit measure is earnings before interest and taxes; the
+          productivity and profit percentages describe different outcomes.
+        </p>
       </div>
     </div>
 
-    <p class="opp__kicker" data-reveal>McKinsey's 2026 global survey found:</p>
-
-    <ul class="opp__stats" role="list">
-      {stats.map((s, i) => (
-        <li class="stat" data-reveal style={`--i:${i}`}>
-          <p class="stat__value" aria-label={s.label ?? s.value}>
-            {s.prefix && <span class="stat__prefix">{s.prefix}</span>}
-            {s.value}
-          </p>
-          <p class="stat__text">{s.text}</p>
-        </li>
-      ))}
-    </ul>
-
-    <p class="cite opp__cite" data-reveal>
-      McKinsey, The State of AI in 2026: On the Road to ROI, August 2026. 1,719 participants in 97 countries,
-      surveyed May 4 to June 8, 2026. AI high performers are a small subgroup of 92 respondents, and the workflow
-      finding is an association within that group. The profit measure is earnings before interest and taxes; the
-      productivity and profit percentages describe different outcomes.
-    </p>
-
     <div class="grid opp__close">
+      <span class="opp__quote-icon" data-reveal><Icon name="quotes" /></span>
       <p class="opp__question" data-reveal>
         For leaders, the value question extends beyond the technology: which business priorities merit
         investment, how should the work and workflow change, and what operating conditions will help the new
@@ -49,70 +61,108 @@ import { stats } from '../data/site';
 </section>
 
 <style>
-  .opp {
-    border-top: 1px solid var(--line);
+  .opp__head {
+    row-gap: 48px;
   }
-  .opp__label {
+  .opp__side {
     grid-column: 1 / 5;
     padding-top: 14px;
   }
+  .opp__side :global(.opp__img) {
+    margin-top: 40px;
+    position: sticky;
+    top: 120px;
+  }
   .opp__intro {
-    grid-column: 5 / 13;
+    grid-column: 6 / 13;
   }
   .opp__lede {
     margin-top: 28px;
   }
   .opp__kicker {
-    margin-top: clamp(72px, 9vw, 120px);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+    margin-top: clamp(56px, 7vw, 88px);
     font-size: 14px;
     color: var(--ink-muted);
   }
   .opp__stats {
     list-style: none;
-    display: grid;
-    grid-template-columns: 1.15fr 1fr 1.25fr;
-    margin-top: 20px;
+    margin-top: 24px;
     border-top: 1px solid var(--line-strong);
   }
   .stat {
-    padding: 36px clamp(16px, 2.4vw, 40px) 8px 0;
-  }
-  .stat + .stat {
-    padding-left: clamp(16px, 2.4vw, 40px);
-    border-left: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    column-gap: 32px;
+    align-items: end;
+    padding: 32px 0 28px;
+    border-bottom: 1px solid var(--line);
   }
   .stat__value {
+    grid-row: span 2;
     display: flex;
     align-items: baseline;
     gap: 12px;
     font-family: var(--serif);
     font-weight: 300;
-    font-size: clamp(64px, 8vw, 112px);
-    line-height: 0.95;
+    font-size: clamp(64px, 7.4vw, 108px);
+    line-height: 0.92;
     letter-spacing: -0.035em;
     color: var(--ink);
+    font-variant-numeric: tabular-nums;
     font-variation-settings: 'opsz' 72;
   }
   .stat__prefix {
     font-family: var(--sans);
-    font-size: 13px;
+    font-size: 12.5px;
     font-weight: 500;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--teal);
   }
+  .stat__bar {
+    position: relative;
+    display: block;
+    height: 2px;
+    background: var(--line);
+    overflow: hidden;
+  }
+  .stat__bar::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    width: var(--w);
+    background: var(--teal);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+  }
+  .stat.is-in .stat__bar::after,
+  :global(html:not(.js)) .stat__bar::after {
+    transform: none;
+  }
   .stat__text {
-    margin-top: 22px;
-    max-width: 30ch;
+    margin-top: 16px;
     color: var(--ink-soft);
   }
   .opp__cite {
-    margin-top: 40px;
-    padding-top: 20px;
-    border-top: 1px solid var(--line);
+    margin-top: 28px;
   }
   .opp__close {
-    margin-top: clamp(72px, 9vw, 120px);
+    margin-top: clamp(80px, 10vw, 136px);
+    row-gap: 16px;
+  }
+  .opp__quote-icon {
+    grid-column: 4 / 5;
+    justify-self: end;
+    color: var(--teal);
+  }
+  .opp__quote-icon :global(.icon) {
+    width: 44px;
+    height: 44px;
   }
   .opp__question {
     grid-column: 5 / 12;
@@ -125,19 +175,22 @@ import { stats } from '../data/site';
   }
 
   @media (max-width: 899px) {
-    .opp__intro {
-      margin-top: 20px;
+    .opp__side :global(.opp__img) {
+      position: relative;
+      top: auto;
+      max-width: 360px;
     }
-    .opp__stats {
+    .opp__quote-icon {
+      justify-self: start;
+    }
+  }
+  @media (max-width: 599px) {
+    .stat {
       grid-template-columns: 1fr;
     }
-    .stat,
-    .stat + .stat {
-      padding: 32px 0;
-      border-left: 0;
-    }
-    .stat + .stat {
-      border-top: 1px solid var(--line);
+    .stat__value {
+      grid-row: auto;
+      margin-bottom: 20px;
     }
   }
 </style>

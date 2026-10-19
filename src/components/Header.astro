@@ -44,7 +44,10 @@ import { nav, site } from '../data/site';
     position: fixed;
     inset: 0 0 auto 0;
     z-index: 40;
-    transition: background-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
+    transition: background-color 0.4s var(--ease), box-shadow 0.4s var(--ease), transform 0.5s var(--ease);
+  }
+  .header.is-hidden:not(.is-open) {
+    transform: translateY(-100%);
   }
   .header.is-scrolled,
   .header.is-open {
@@ -220,6 +223,29 @@ import { nav, site } from '../data/site';
     new IntersectionObserver(([entry]) => {
       header.classList.toggle('is-scrolled', !entry.isIntersecting);
     }).observe(sentinel);
+  }
+
+  // Hide while scrolling down, show again on any upward scroll.
+  if (header) {
+    let lastY = window.scrollY;
+    let ticking = false;
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          const y = window.scrollY;
+          if (Math.abs(y - lastY) > 6) {
+            header.classList.toggle('is-hidden', y > lastY && y > 240);
+            lastY = y;
+          }
+          ticking = false;
+        });
+      },
+      { passive: true }
+    );
+    header.addEventListener('focusin', () => header.classList.remove('is-hidden'));
   }
 
   const setOpen = (open: boolean) => {

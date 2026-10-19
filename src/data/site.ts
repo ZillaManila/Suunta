@@ -36,13 +36,17 @@ export const stats = [
 ];
 
 export const method = [
-  { term: 'Work', question: 'How should people and AI contribute to the outcome?' },
+  { term: 'Work', icon: 'users-three', image: 'People and AI at work, close-up of a working session', question: 'How should people and AI contribute to the outcome?' },
   {
     term: 'Workflow',
+    icon: 'tree-structure',
+    image: 'Workflow mapping on a wall or whiteboard',
     question: 'How should work, decisions, data, ownership, and oversight move across the organization?',
   },
   {
     term: 'Value',
+    icon: 'trend-up',
+    image: 'Leaders reviewing results together',
     question:
       'How will the organization measure time and cost savings, understand workflow and human value, and reinforce the new way of working?',
   },
@@ -51,26 +55,31 @@ export const method = [
 export const steps = [
   {
     name: 'Direction',
+    icon: 'compass',
     title: 'Define the outcome.',
     body: 'Agree the business priority, the value sought, the decision questions, the executive sponsor, and the measures that will guide the work.',
   },
   {
     name: 'Work',
+    icon: 'user-focus',
     title: 'Redesign the contribution.',
     body: 'Examine tasks, judgment, expertise, and accountability. Clarify where people lead, where AI assists, and where human oversight remains essential.',
   },
   {
     name: 'Workflow',
+    icon: 'flow-arrow',
     title: 'Rebuild how work moves.',
     body: 'Redesign the sequence of activity, decisions, data, access, handoffs, ownership, controls, and exception paths required for the new model.',
   },
   {
     name: 'Activate',
+    icon: 'rocket-launch',
     title: 'Put the model into practice.',
     body: 'When appropriate, begin with a focused pilot or first-workflow implementation. Confirm data, access, governance, and knowledge readiness; align leaders; prepare teams; build trust and capability; and establish the operating rhythms that support confident adoption.',
   },
   {
     name: 'Value',
+    icon: 'chart-line-up',
     title: 'Measure and reinforce.',
     body: 'Track business outcomes; workflow measures such as cycle time, quality, errors, handoffs, and rework; and people measures such as clarity, confidence, capability, judgment, and adoption. Align leadership signals, performance measures, recognition, and rewards with the desired contribution. Use an agreed review period to refine the workflow and identify the next opportunity.',
   },
@@ -79,26 +88,32 @@ export const steps = [
 export const services = [
   {
     name: 'Direction Call',
+    icon: 'chats-circle',
     body: 'A focused executive conversation about one business priority, the value you want AI to create, and the work or workflow involved.',
   },
   {
     name: 'Scoped Diagnostic',
+    icon: 'file-magnifying-glass',
     body: 'An examination of a defined business priority through interviews, relevant information, workflow analysis, and executive decision questions, delivered as a Key Findings Report and executive presentation.',
   },
   {
     name: 'Strategy, Priorities, and Roadmap',
+    icon: 'map-trifold',
     body: 'A practical roadmap that connects business outcomes, AI opportunities, risks, readiness, priorities, sequencing, value measures, and implementation decisions.',
   },
   {
     name: 'AI-Assisted Work and Workflow Redesign',
+    icon: 'flow-arrow',
     body: 'A redesign of how people and AI contribute to the outcome, how the workflow operates, where decisions and oversight belong, and what data and access are required.',
   },
   {
     name: 'Focused Implementation and Adoption',
+    icon: 'rocket-launch',
     body: 'A focused pilot or first-workflow implementation, with the executive alignment, team preparation, trust, and capability that help it move into practice.',
   },
   {
     name: 'Measurement, Reinforcement, and Optimization',
+    icon: 'gauge',
     body: 'Results measurement, adoption review, and workflow refinement, with performance measures, recognition, incentives, career signals, and leadership expectations aligned to the outcomes you want to encourage.',
   },
 ];
@@ -106,6 +121,7 @@ export const services = [
 export const credentials = [
   {
     group: 'AI certifications',
+    icon: 'seal-check',
     items: [
       'AI Assisted® Consultant Certification: AI Consultant; AI Implementor Level 1; Data Specialist. Industry Rockstar.',
       'Certified AI for HR Specialist. Academy to Innovate HR (AIHR).',
@@ -113,12 +129,14 @@ export const credentials = [
   },
   {
     group: 'AI and data learning',
+    icon: 'graduation-cap',
     items: [
       'Google Data Analytics; Google Prompting Essentials; Introduction to Generative AI Learning Path (Google Cloud); AI Strategy for HR Leaders and HR Consulting Skills (AIHR).',
     ],
   },
   {
     group: 'Professional designations',
+    icon: 'certificate',
     items: ['Certified Compensation Professional (CCP) · Certified Human Resources Leader (CHRL)'],
   },
 ];
@@ -126,6 +144,7 @@ export const credentials = [
 export type Source = { label: string; url: string };
 
 export const insights: {
+  publisher: string;
   title: string;
   question: string;
   found: string;
@@ -133,6 +152,7 @@ export const insights: {
   sources: Source[];
 }[] = [
   {
+    publisher: 'Gartner',
     title: 'Five Conditions Help GenAI Move Beyond Proof of Concept',
     question:
       'Which of these conditions needs the most attention before your next AI initiative can move forward with confidence?',
@@ -148,6 +168,7 @@ export const insights: {
     ],
   },
   {
+    publisher: 'McKinsey',
     title: 'Connecting Individual Productivity With Company Profit',
     question:
       'Where is AI already helping people work better, and how will that improvement become measurable time or cost savings for the organization?',
@@ -163,6 +184,7 @@ export const insights: {
     ],
   },
   {
+    publisher: 'Gartner',
     title: 'Continuous Work Redesign Supports Sustained AI Transformation',
     question:
       'Where would continuous work redesign help your organization sustain AI value as priorities and technology evolve?',
@@ -178,6 +200,7 @@ export const insights: {
     ],
   },
   {
+    publisher: 'McKinsey',
     title: 'Workflow Redesign Is a Pattern Among AI High Performers',
     question: 'Which workflow offers a clear enough value opportunity to redesign, implement, and measure?',
     found:
@@ -192,6 +215,7 @@ export const insights: {
     ],
   },
   {
+    publisher: 'McKinsey · Deloitte',
     title: 'Adoption Depends on the People and Operating Model Around the Technology',
     question: 'What operating conditions will help the redesigned workflow become part of everyday work?',
     found:
@@ -212,7 +236,16 @@ export const insights: {
 ];
 
 export const bring = [
-  'The business outcome you want AI to support.',
-  'The workflow, team, or customer experience you want to improve.',
-  'The decision you want greater clarity to make.',
+  { icon: 'target', text: 'The business outcome you want AI to support.' },
+  { icon: 'path', text: 'The workflow, team, or customer experience you want to improve.' },
+  { icon: 'lightbulb', text: 'The decision you want greater clarity to make.' },
 ];
+
+export const valueLevels = [
+  { icon: 'buildings', label: 'Business outcomes' },
+  { icon: 'flow-arrow', label: 'Workflow performance' },
+  { icon: 'hand-heart', label: 'The capacity and experience of the people doing the work' },
+];
+
+// Words for the slow marquee band: the five stages of the approach.
+export const marquee = ['Direction', 'Work', 'Workflow', 'Activate', 'Value'];

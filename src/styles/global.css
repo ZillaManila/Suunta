@@ -306,7 +306,7 @@ ol {
   cursor: pointer;
   overflow: hidden;
   isolation: isolate;
-  transition: color 0.4s var(--ease), border-color 0.4s var(--ease), transform 0.15s ease;
+  transition: color 0.4s var(--ease), border-color 0.4s var(--ease), transform 0.5s var(--ease);
 }
 
 .btn::before {
@@ -419,4 +419,68 @@ ol {
     transform: none;
     transition: none;
   }
+}
+
+/* ---------- Word-by-word heading reveal ---------- */
+
+.js [data-split] .w {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+.js [data-split] .w__i {
+  display: inline-block;
+  transform: translateY(105%);
+  transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--wi, 0) * 45ms + var(--split-delay, 0ms));
+}
+
+.js [data-split].is-in .w__i {
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-split] .w__i {
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ---------- Icon helpers ---------- */
+
+.icon {
+  display: inline-block;
+  flex: none;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px 6px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.chip .icon {
+  width: 15px;
+  height: 15px;
+  color: var(--teal);
+}
+
+.section--night .chip {
+  border-color: var(--line-night);
+  color: var(--on-night-soft);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.section--night .chip .icon {
+  color: var(--teal-light);
 }

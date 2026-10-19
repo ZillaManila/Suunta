@@ -1,0 +1,247 @@
+---
+// An image position. With `src` it shows the photo; without, a designed placeholder
+// (duotone + topographic contours) labelled with the intended shot, so photography
+// can be briefed and dropped in later without layout changes.
+import Icon from './Icon.astro';
+
+interface Props {
+  label: string;
+  src?: string;
+  alt?: string;
+  ratio?: string; // CSS aspect-ratio, e.g. "16 / 9"
+  tone?: 'navy' | 'teal' | 'stone' | 'mist';
+  parallax?: boolean;
+  class?: string;
+  eager?: boolean;
+}
+
+const {
+  label,
+  src,
+  alt = '',
+  ratio = '4 / 3',
+  tone = 'navy',
+  parallax = true,
+  class: className,
+  eager = false,
+} = Astro.props;
+
+// Deterministic contour lines seeded from the label.
+let seed = [...label].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
+const rand = () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 2 ** 32);
+const cx = 20 + rand() * 60;
+const cy = 25 + rand() * 50;
+const p1 = rand() * Math.PI * 2;
+const p2 = rand() * Math.PI * 2;
+const contours = Array.from({ length: 16 }, (_, k) => {
+  const r = 6 + k * 7.5;
+  const pts = Array.from({ length: 72 }, (_, i) => {
+    const t = (i / 72) * Math.PI * 2;
+    const rr = r * (1 + 0.16 * Math.sin(3 * t + p1 + k * 0.12) + 0.07 * Math.sin(5 * t + p2 - k * 0.2));
+    return `${(cx + rr * Math.cos(t) * 1.25).toFixed(2)},${(cy + rr * Math.sin(t)).toFixed(2)}`;
+  });
+  return `M${pts.join('L')}Z`;
+});
+const ratioLabel = ratio.replace(/\s/g, '').replace('/', ':');
+---
+
+<figure
+  class:list={['slot', `slot--${tone}`, { 'slot--px': parallax }, className]}
+  style={`aspect-ratio:${ratio}`}
+  data-draw
+>
+  <div class="slot__media">
+    <div class="slot__px">
+      {src ? (
+        <img src={src} alt={alt} loading={eager ? 'eager' : 'lazy'} decoding="async" />
+      ) : (
+        <div class="slot__ph" role="img" aria-label={`Image placeholder: ${label}`}>
+          <svg class="slot__topo" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            {contours.map((d, i) => (
+              <path d={d} class={i % 4 === 3 ? 'is-major' : undefined} />
+            ))}
+          </svg>
+        </div>
+      )}
+    </div>
+  </div>
+  {!src && (
+    <figcaption class="slot__chip">
+      <Icon name="image" />
+      <span>{label}</span>
+      <span class="slot__ratio">{ratioLabel}</span>
+    </figcaption>
+  )}
+  <slot />
+</figure>
+
+<style>
+  .slot {
+    --bg-a: #22345a;
+    --bg-b: #0f1a2d;
+    --line: rgba(107, 184, 201, 0.32);
+    --chip-bg: rgba(15, 26, 45, 0.55);
+    --chip-fg: #eef0f3;
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    border-radius: var(--radius);
+    background: var(--paper-3);
+    isolation: isolate;
+  }
+  .slot--teal {
+    --bg-a: #128aa8;
+    --bg-b: #0a4d61;
+    --line: rgba(255, 255, 255, 0.24);
+    --chip-bg: rgba(6, 50, 63, 0.5);
+  }
+  .slot--stone {
+    --bg-a: #e9e7df;
+    --bg-b: #d4d1c5;
+    --line: rgba(20, 33, 58, 0.16);
+    --chip-bg: rgba(245, 244, 240, 0.72);
+    --chip-fg: #14213a;
+  }
+  .slot--mist {
+    --bg-a: #e4ecee;
+    --bg-b: #c4d5da;
+    --line: rgba(14, 116, 144, 0.3);
+    --chip-bg: rgba(245, 244, 240, 0.72);
+    --chip-fg: #14213a;
+  }
+  .slot__media,
+  .slot__px {
+    position: absolute;
+    inset: 0;
+  }
+  .slot__px {
+    inset: -8% 0;
+  }
+  .slot__px img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .slot__ph {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(120% 90% at 20% 15%, var(--bg-a), var(--bg-b) 70%);
+  }
+  .slot__ph::after {
+    /* fine grain for a photographic feel */
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.18;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .slot__topo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: var(--line);
+    stroke-width: 0.18;
+    vector-effect: non-scaling-stroke;
+  }
+  .slot__topo path {
+    vector-effect: non-scaling-stroke;
+    stroke-width: 1;
+  }
+  .slot__topo path.is-major {
+    stroke-width: 1.6;
+  }
+  .slot__chip {
+    position: absolute;
+    left: 14px;
+    bottom: 14px;
+    right: 14px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+    max-width: calc(100% - 28px);
+    padding: 7px 12px 7px 10px;
+    border-radius: 999px;
+    background: var(--chip-bg);
+    color: var(--chip-fg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    font-size: 11.5px;
+    letter-spacing: 0.04em;
+    line-height: 1.3;
+  }
+  .slot__chip :global(.icon) {
+    width: 15px;
+    height: 15px;
+    flex: none;
+    opacity: 0.85;
+  }
+  .slot__ratio {
+    opacity: 0.6;
+    padding-left: 8px;
+    border-left: 1px solid currentColor;
+    border-left-color: color-mix(in srgb, currentColor 30%, transparent);
+  }
+
+  /* Wipe-in reveal. The clip sits on an inner layer: a fully clipped target never
+     reports as intersecting, so the observed figure itself must stay unclipped. */
+  :global(.js) .slot .slot__media {
+    clip-path: inset(100% 0 0 0);
+    transition: clip-path 1.3s cubic-bezier(0.77, 0, 0.18, 1);
+  }
+  :global(.js) .slot .slot__px {
+    scale: 1.14;
+    transition: scale 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  :global(.js) .slot .slot__chip {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.6s var(--ease) 0.9s, transform 0.6s var(--ease) 0.9s;
+  }
+  :global(.js) .slot.is-in .slot__media {
+    clip-path: inset(0 0 0 0);
+  }
+  :global(.js) .slot.is-in .slot__px {
+    scale: 1;
+  }
+  :global(.js) .slot.is-in .slot__chip {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Parallax drift, where scroll-driven animations are supported */
+  @supports (animation-timeline: view()) {
+    .slot--px .slot__px {
+      animation: slot-drift linear both;
+      animation-timeline: view();
+      animation-range: cover;
+    }
+    @keyframes slot-drift {
+      from {
+        transform: translateY(-6%);
+      }
+      to {
+        transform: translateY(6%);
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(.js) .slot .slot__media,
+    :global(.js) .slot .slot__px,
+    :global(.js) .slot .slot__chip {
+      clip-path: none;
+      transform: none;
+      scale: 1;
+      opacity: 1;
+      transition: none;
+    }
+    .slot--px .slot__px {
+      animation: none;
+    }
+  }
+</style>
