@@ -5,24 +5,7 @@ free for commercial use, no attribution required. Credited here as good practice
 
 | File | Photo | Photographer | Source |
 | --- | --- | --- | --- |
-| `leaders-reviewing.jpg` | Business People | Direct Media | https://stocksnap.io/photo/business-people-DUXISHKTT3 |
-| `method-work.jpg` | Business People | Direct Media | https://stocksnap.io/photo/business-people-H6PSN9BPGZ |
-| `method-workflow.jpg` | Whiteboard Webdesign | Christina Morillo | https://stocksnap.io/photo/whiteboard-webdesign-NUEH6AWK1X |
-| `method-value.jpg` | Business Presenting | Direct Media | https://stocksnap.io/photo/business-presenting-XDAR6MIG75 |
-| `workshop-redesign.jpg` | Team Meeting | Startup Stock Photos | https://stocksnap.io/photo/team-meeting-84GOP2OAKR |
-| `focused-pilot.jpg` | Business People | Direct Media | https://stocksnap.io/photo/business-people-HWLNQD65VR |
 | `finnish-lake.jpg` | Lake River | Dominik Dombrowski | https://stocksnap.io/photo/lake-river-T67N25HBIA |
-| `svc-direction-call.jpg` | Business People | Direct Media | https://stocksnap.io/photo/business-people-VIEC4IZZRI |
-| `svc-scoped-diagnostic.jpg` | Business People | Direct Media | https://stocksnap.io/photo/business-people-SLSA7V79H2 |
-| `svc-strategy-roadmap.jpg` | Business People | Direct Media | https://stocksnap.io/photo/business-people-IDYMLGDH3I |
-| `svc-work-redesign.jpg` | Business People | Direct Media | https://stocksnap.io/photo/business-people-AKSM11WW9N |
-| `svc-implementation.jpg` | Business People | Direct Media | https://stocksnap.io/photo/business-people-FRU4Y0OBEY |
-| `svc-measurement.jpg` | Business Team | Direct Media | https://stocksnap.io/photo/business-team-RMVMI0VFZ3 |
-| `brief-1.jpg` | Business People | Direct Media | https://stocksnap.io/photo/business-people-AVEETCDTQA |
-| `brief-2.jpg` | Business People | Direct Media | https://stocksnap.io/photo/business-people-WC6HIXVOYF |
-| `brief-3.jpg` | Business People | Direct Media | https://stocksnap.io/photo/business-people-AVJUQINOHJ |
-| `brief-4.jpg` | Business People | Direct Media | https://stocksnap.io/photo/business-people-NOCUN9VX3F |
-| `brief-5.jpg` | Business People | Direct Media | https://stocksnap.io/photo/business-people-NS0TW3LSDM |
 
 ## Burst (Shopify)
 
@@ -31,3 +14,27 @@ Free to use commercially under the [Burst license](https://www.shopify.com/stock
 | File | Photo | Source |
 | --- | --- | --- |
 | `hero-bg-2400.jpg`, `hero-bg-1200.jpg` | Powerful Business Women In Meeting (mirrored) | https://www.shopify.com/stock-photos/photos/powerful-business-women-in-meeting |
+
+## Pexels
+
+Free to use commercially under the [Pexels license](https://www.pexels.com/license/); no attribution required.
+
+| File | Source |
+| --- | --- |
+| `leaders-reviewing.jpg` | https://www.pexels.com/photo/3184338/ |
+| `method-work.jpg` | https://www.pexels.com/photo/3184291/ |
+| `method-workflow.jpg` | https://www.pexels.com/photo/3184296/ |
+| `method-value.jpg` | https://www.pexels.com/photo/3184317/ |
+| `workshop-redesign.jpg` | https://www.pexels.com/photo/3184306/ |
+| `focused-pilot.jpg` | https://www.pexels.com/photo/3184316/ |
+| `svc-direction-call.jpg` | https://www.pexels.com/photo/3184301/ |
+| `svc-scoped-diagnostic.jpg` | https://www.pexels.com/photo/3184292/ |
+| `svc-strategy-roadmap.jpg` | https://www.pexels.com/photo/3184298/ |
+| `svc-work-redesign.jpg` | https://www.pexels.com/photo/3184325/ |
+| `svc-implementation.jpg` | https://www.pexels.com/photo/3182812/ |
+| `svc-measurement.jpg` | https://www.pexels.com/photo/3184294/ |
+| `brief-1.jpg` | https://www.pexels.com/photo/3184339/ |
+| `brief-2.jpg` | https://www.pexels.com/photo/3184313/ |
+| `brief-3.jpg` | https://www.pexels.com/photo/3184302/ |
+| `brief-4.jpg` | https://www.pexels.com/photo/3184310/ |
+| `brief-5.jpg` | https://www.pexels.com/photo/3184322/ |

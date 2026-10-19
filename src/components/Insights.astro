@@ -5,11 +5,11 @@ import Mark from './Mark.astro';
 import { insights } from '../data/site';
 
 const photos = [
-  { src: '/images/brief-1.jpg', alt: 'A leader setting out conditions for an AI initiative to the team' },
-  { src: '/images/brief-2.jpg', alt: 'Two colleagues reviewing productivity results on a laptop' },
-  { src: '/images/brief-3.jpg', alt: 'A team adapting its plans during a working session' },
-  { src: '/images/brief-4.jpg', alt: 'Senior leaders redesigning a workflow together' },
-  { src: '/images/brief-5.jpg', alt: 'Colleagues talking through how their work is changing' },
+  { src: '/images/brief-1.jpg', alt: 'A team reviewing an AI initiative together around a table' },
+  { src: '/images/brief-2.jpg', alt: 'Colleagues discussing results in a working session' },
+  { src: '/images/brief-3.jpg', alt: 'A team working through plans at their laptops' },
+  { src: '/images/brief-4.jpg', alt: 'A team redesigning a workflow around a shared table' },
+  { src: '/images/brief-5.jpg', alt: 'A leader talking a team through how their work is changing' },
 ];
 ---
 
@@ -145,7 +145,7 @@ const photos = [
     object-fit: cover;
     opacity: 0;
     transform: scale(1.06);
-    filter: saturate(0.8) contrast(1.03);
+    filter: saturate(0.95) contrast(1.04);
     transition: opacity 0.9s var(--ease), transform 1.6s var(--ease);
   }
   .ins-photo.is-active {
@@ -156,7 +156,7 @@ const photos = [
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(160deg, rgba(14, 116, 144, 0.08), rgba(15, 26, 45, 0.2));
+    background: linear-gradient(160deg, rgba(14, 116, 144, 0.04), rgba(15, 26, 45, 0.08));
     mix-blend-mode: multiply;
     pointer-events: none;
   }
@@ -317,7 +317,7 @@ const photos = [
       aspect-ratio: 16 / 10;
       object-fit: cover;
       margin-bottom: 18px;
-      filter: saturate(0.8) contrast(1.03);
+      filter: saturate(0.95) contrast(1.04);
     }
     .brief__inner {
       padding-right: 0;

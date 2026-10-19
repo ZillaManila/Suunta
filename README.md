@@ -71,9 +71,9 @@ the approach timeline, and links.
 
 ## Placeholders to replace
 
-- **Photos**: 8 of the 10 image slots use free CC0 stock photos from StockSnap (see
-  `public/images/CREDITS.md`). They are served at 960px wide, so for launch consider higher-resolution or
-  original photography. The **portrait** (About) and **headshot** (Contact) remain labelled placeholders until
+- **Photos**: stock photos from Pexels, Burst and StockSnap, all free for commercial use (see
+  `public/images/CREDITS.md`). Most are 1800px wide; consider original photography for launch.
+  The **portrait** (About) and **headshot** (Contact) remain labelled placeholders until
   real photos of John are available.
 - **Logo**: `src/components/Mark.astro` and `public/favicon.svg` are a vector redraw of the draft arrowhead.
   Replace the path with the final logo when available.
