@@ -46,7 +46,7 @@ const ratioLabel = ratio.replace(/\s/g, '').replace('/', ':');
 ---
 
 <figure
-  class:list={['slot', `slot--${tone}`, { 'slot--px': parallax }, className]}
+  class:list={['slot', `slot--${tone}`, { 'slot--px': parallax, 'slot--photo': !!src }, className]}
   style={`aspect-ratio:${ratio}`}
   data-draw
 >
@@ -121,6 +121,16 @@ const ratioLabel = ratio.replace(/\s/g, '').replace('/', ':');
     width: 100%;
     height: 100%;
     object-fit: cover;
+    /* gentle grade so stock photos sit in the navy/teal palette */
+    filter: saturate(0.78) contrast(1.03) brightness(1.02);
+  }
+  .slot--photo .slot__px::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, rgba(14, 116, 144, 0.1), rgba(15, 26, 45, 0.22));
+    mix-blend-mode: multiply;
+    pointer-events: none;
   }
   .slot__ph {
     position: absolute;

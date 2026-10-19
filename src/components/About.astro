@@ -65,7 +65,14 @@ import { credentials, site } from '../data/site';
     </div>
 
     <div class="why">
-      <ImageSlot label="Finnish landscape: still water, forest, a clear horizon" ratio="21 / 9" tone="mist" class="why__img">
+      <ImageSlot
+        label="Finnish landscape: still water, forest, a clear horizon"
+        src="/images/finnish-lake.jpg"
+        alt="A still lake in mist, framed by pine forest"
+        ratio="21 / 9"
+        tone="mist"
+        class="why__img why__img--light"
+      >
         <div class="why__overlay">
           <p class="why__suunta" data-split>Suunta</p>
           <p class="why__say"><span>SOON-tah</span> · direction, in Finnish</p>
@@ -213,6 +220,13 @@ import { credentials, site } from '../data/site';
 
   .why {
     margin-top: clamp(96px, 12vw, 160px);
+  }
+  .why :global(.why__img--light .slot__media)::after {
+    /* soft white wash so the navy wordmark reads over the photo */
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(245, 244, 240, 0.78) 0%, rgba(245, 244, 240, 0.35) 55%, rgba(245, 244, 240, 0) 100%);
   }
   .why__overlay {
     position: absolute;

@@ -4,6 +4,11 @@ import Icon from './Icon.astro';
 import ImageSlot from './ImageSlot.astro';
 import { method, valueLevels } from '../data/site';
 const tones = ['navy', 'teal', 'stone'] as const;
+const photos = [
+  { src: '/images/method-work.jpg', alt: 'Colleagues working through a problem together at a laptop' },
+  { src: '/images/method-workflow.jpg', alt: 'A workflow mapped out on a whiteboard' },
+  { src: '/images/method-value.jpg', alt: 'A leader presenting progress to a team' },
+];
 ---
 
 <section class="section section--tint method" id="method" aria-labelledby="method-title">
@@ -37,7 +42,7 @@ const tones = ['navy', 'teal', 'stone'] as const;
               </p>
             )}
           </div>
-          <ImageSlot label={m.image} ratio="4 / 3" tone={tones[i]} class="card__img" />
+          <ImageSlot label={m.image} src={photos[i].src} alt={photos[i].alt} ratio="4 / 3" tone={tones[i]} class="card__img" />
         </li>
       ))}
     </ol>
