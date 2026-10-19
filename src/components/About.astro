@@ -17,8 +17,15 @@ import { credentials, site } from '../data/site';
       </div>
 
       <div class="about__portrait">
-        {/* Add the portrait as src="/images/john-hyttinen.jpg" (4:5, at least 1200×1500). */}
-        <ImageSlot label="Portrait of John Hyttinen" ratio="4 / 5" tone="navy" parallax={false}>
+        <ImageSlot
+          label="Portrait of John Hyttinen"
+          src="/images/john-hyttinen.jpg"
+          alt="John Hyttinen, Founder of Suunta Labs"
+          ratio="4 / 5"
+          tone="stone"
+          parallax={false}
+          class="about__photo"
+        >
           <span class="about__tag">
             <span class="about__dot"></span>
             Toronto area, working globally
@@ -105,6 +112,14 @@ import { credentials, site } from '../data/site';
     grid-row: 1 / span 2;
     position: sticky;
     top: 110px;
+  }
+  /* Studio portrait: keep it true to life, no colour grade */
+  .about__portrait :global(.about__photo img) {
+    filter: none;
+    object-position: center top;
+  }
+  .about__portrait :global(.about__photo .slot__px::after) {
+    display: none;
   }
   .about__tag {
     position: absolute;

@@ -2,7 +2,6 @@
 import ArrowIcon from './ArrowIcon.astro';
 import Icon from './Icon.astro';
 import IconBadge from './IconBadge.astro';
-import ImageSlot from './ImageSlot.astro';
 import { bring, site } from '../data/site';
 ---
 
@@ -28,7 +27,7 @@ import { bring, site } from '../data/site';
 
     <aside class="contact__bring" data-reveal style="--i:2">
       <div class="contact__person">
-        <ImageSlot label="John, headshot" ratio="1 / 1" tone="teal" parallax={false} class="contact__avatar" />
+        <img class="contact__avatar" src="/images/john-hyttinen-headshot.jpg" alt="John Hyttinen" width="64" height="64" loading="lazy" decoding="async" />
         <div>
           <p class="contact__person-name">John Hyttinen</p>
           <p class="contact__person-role">Founder, Suunta Labs Inc.</p>
@@ -131,13 +130,13 @@ import { bring, site } from '../data/site';
     gap: 16px;
     margin-bottom: 36px;
   }
-  .contact__person :global(.contact__avatar) {
+  .contact__avatar {
     width: 64px;
+    height: 64px;
     flex: none;
     border-radius: 50%;
-  }
-  .contact__person :global(.contact__avatar .slot__chip) {
-    display: none;
+    object-fit: cover;
+    box-shadow: 0 0 0 2px var(--night), 0 0 0 3px rgba(107, 184, 201, 0.6);
   }
   .contact__person-name {
     font-family: var(--serif);

@@ -73,8 +73,8 @@ the approach timeline, and links.
 
 - **Photos**: stock photos from Pexels, Burst and StockSnap, all free for commercial use (see
   `public/images/CREDITS.md`). Most are 1800px wide; consider original photography for launch.
-  The **portrait** (About) and **headshot** (Contact) remain labelled placeholders until
-  real photos of John are available.
-- **Logo**: `src/components/Mark.astro` and `public/favicon.svg` are a vector redraw of the draft arrowhead.
-  Replace the path with the final logo when available.
+  John's portrait (About) and headshot (Contact) use his supplied photo.
+- **Logo**: the official logo is `public/images/suunta-labs-logo.png` (plus a `-light` version for dark
+  backgrounds), used via `src/components/Logo.astro`. The arrowhead alone (`Mark.astro`, `favicon.svg`) is a
+  vector traced from it. A vector (SVG) master of the full logo would be sharper still if one exists.
 - **Share image**: `public/images/og.png`, regenerated with `npm run render:og` (`tools/render-og.mjs`).

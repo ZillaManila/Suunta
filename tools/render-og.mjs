@@ -18,7 +18,7 @@ em{color:#0b5d74;font-weight:340}
 .tag{position:absolute;left:80px;bottom:70px;font-size:20px;color:#0e7490;letter-spacing:.02em}
 svg.d{position:absolute;right:40px;top:90px;width:340px}
 </style></head><body>
-<div class="logo"><svg width="26" viewBox="0 0 32 36"><path fill="#1b2a4a" d="M12.6 0.8 L30.4 35 L14.9 26.2 L1.6 31.4 Z"/></svg>SUUNTA LABS</div>
+<div class="logo"><svg width="24" viewBox="0 0 225 270"><path fill="#0f2650" d="M106 2 L224 267 L96 180 L0 236 Z"/></svg>SUUNTA LABS</div>
 <h1>Turn Underperforming AI Adoption Into <em>Measurable Time and Cost Savings</em></h1>
 <div class="tag">Direction for Better Work</div>
 <svg class="d" viewBox="0 0 520 560"><circle cx="430" cy="112" r="74" fill="none" stroke="#0e7490" opacity=".22"/>
