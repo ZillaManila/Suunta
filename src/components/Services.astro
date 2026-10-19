@@ -1,0 +1,150 @@
+---
+import ArrowIcon from './ArrowIcon.astro';
+import { services, site } from '../data/site';
+---
+
+<section class="section services" id="services" aria-labelledby="services-title">
+  <div class="wrap">
+    <div class="grid services__head">
+      <div class="services__label">
+        <p class="eyebrow" data-reveal>Services</p>
+      </div>
+      <div class="services__intro">
+        <h2 class="h2" id="services-title" data-reveal>AI Transformation From Strategy Through Adoption</h2>
+        <p class="lede services__lede" data-reveal style="--i:1">
+          I help executive teams connect AI strategy, implementation, and adoption through an operating model that
+          brings together people, technology, workflows, leadership, accountability, and measurable value.
+        </p>
+      </div>
+    </div>
+
+    <ul class="svc" role="list">
+      {services.map((s, i) => (
+        <li class:list={['svc__row', { 'svc__row--start': i === 0 }]} data-reveal>
+          <span class="svc__index">{String(i + 1).padStart(2, '0')}</span>
+          <h3 class="svc__name">
+            {s.name}
+            {i === 0 && <span class="svc__badge">Start here</span>}
+          </h3>
+          <p class="svc__body">{s.body}</p>
+        </li>
+      ))}
+    </ul>
+
+    <div class="grid services__foot">
+      <p class="services__note" data-reveal>
+        Every engagement starts with a Direction Call. From there, I recommend the right next step, and each scope
+        is designed around your priorities, context, people, systems, and readiness.
+      </p>
+      <div class="services__cta" data-reveal style="--i:1">
+        <a class="btn" href={site.bookingUrl}>Start with a Direction Call <ArrowIcon /></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .services__label {
+    grid-column: 1 / 5;
+    padding-top: 14px;
+  }
+  .services__intro {
+    grid-column: 5 / 13;
+  }
+  .services__lede {
+    margin-top: 28px;
+  }
+  .svc {
+    list-style: none;
+    margin-top: clamp(64px, 8vw, 104px);
+    border-top: 1px solid var(--line-strong);
+  }
+  .svc__row {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: clamp(16px, 2.4vw, 32px);
+    row-gap: 12px;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--line);
+    transition: background-color 0.4s var(--ease);
+  }
+  .svc__row:hover {
+    background: rgba(20, 33, 58, 0.025);
+  }
+  .svc__index {
+    grid-column: 1 / 2;
+    padding-top: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--teal);
+  }
+  .svc__name {
+    grid-column: 2 / 6;
+    font-family: var(--serif);
+    font-size: clamp(22px, 1.9vw, 27px);
+    line-height: 1.2;
+    letter-spacing: -0.008em;
+  }
+  .svc__badge {
+    display: inline-block;
+    margin-left: 10px;
+    padding: 4px 8px;
+    vertical-align: 4px;
+    font-family: var(--sans);
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+    border: 1px solid rgba(14, 116, 144, 0.4);
+    border-radius: var(--radius);
+  }
+  .svc__body {
+    grid-column: 6 / 12;
+    padding-top: 3px;
+    color: var(--ink-soft);
+    max-width: 60ch;
+  }
+  .svc__row--start .svc__name {
+    color: var(--teal-deep);
+  }
+  .services__foot {
+    margin-top: 56px;
+    row-gap: 32px;
+    align-items: center;
+  }
+  .services__note {
+    grid-column: 2 / 8;
+    font-family: var(--serif);
+    font-size: clamp(20px, 1.8vw, 24px);
+    line-height: 1.4;
+    text-wrap: pretty;
+  }
+  .services__cta {
+    grid-column: 9 / 13;
+    justify-self: end;
+  }
+
+  @media (max-width: 899px) {
+    .services__intro {
+      margin-top: 20px;
+    }
+    .svc__row {
+      grid-template-columns: 40px 1fr;
+    }
+    .svc__index {
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .svc__name {
+      grid-column: 2;
+    }
+    .svc__body {
+      grid-column: 2;
+    }
+    .services__cta {
+      justify-self: start;
+    }
+  }
+</style>

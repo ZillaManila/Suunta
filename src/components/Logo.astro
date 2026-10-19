@@ -1,0 +1,52 @@
+---
+import Mark from './Mark.astro';
+interface Props { tone?: 'ink' | 'light'; showTagline?: boolean }
+const { tone = 'ink', showTagline = false } = Astro.props;
+---
+<span class:list={['logo', `logo--${tone}`]}>
+  <Mark class="logo__mark" />
+  <span class="logo__text">
+    <span class="logo__name">Suunta Labs</span>
+    {showTagline && <span class="logo__tag">Direction for Better Work</span>}
+  </span>
+</span>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--ink);
+  }
+  .logo--light {
+    color: var(--on-night);
+  }
+  .logo :global(.logo__mark) {
+    width: 20px;
+    height: auto;
+    flex: none;
+  }
+  .logo__text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+  .logo__name {
+    white-space: nowrap;
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .logo__tag {
+    white-space: nowrap;
+    margin-top: 7px;
+    font-size: 12.5px;
+    letter-spacing: 0.02em;
+    color: var(--teal);
+  }
+  .logo--light .logo__tag {
+    color: var(--teal-light);
+  }
+</style>

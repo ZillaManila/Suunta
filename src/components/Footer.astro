@@ -1,0 +1,119 @@
+---
+import Logo from './Logo.astro';
+import { nav, site } from '../data/site';
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="grid footer__top">
+      <div class="footer__brand">
+        <Logo tone="light" showTagline />
+        <p class="footer__desc">{site.description}</p>
+      </div>
+      <nav class="footer__nav" aria-label="Footer">
+        <ul>
+          {nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="footer__contact">
+        <p class="footer__label">Contact</p>
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+        <a href={site.linkedin} target="_blank" rel="noopener noreferrer">{site.linkedinLabel}</a>
+        <span>{site.location}</span>
+      </div>
+    </div>
+
+    <p class="footer__word" aria-hidden="true">Suunta</p>
+
+    <div class="footer__bottom">
+      <span>© {year} {site.legalName} All rights reserved.</span>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--night);
+    color: var(--on-night-soft);
+    padding-top: 64px;
+    overflow: hidden;
+  }
+  .footer__top {
+    padding-top: 48px;
+    border-top: 1px solid var(--line-night);
+    row-gap: 40px;
+  }
+  .footer__brand {
+    grid-column: 1 / 6;
+  }
+  .footer__desc {
+    margin-top: 24px;
+    max-width: 38ch;
+    font-size: 14.5px;
+  }
+  .footer__nav {
+    grid-column: 7 / 9;
+  }
+  .footer__nav ul {
+    list-style: none;
+  }
+  .footer__nav li + li {
+    margin-top: 8px;
+  }
+  .footer__nav a,
+  .footer__contact a {
+    color: var(--on-night);
+    text-decoration: none;
+    font-size: 14.5px;
+    transition: color 0.2s;
+  }
+  .footer__nav a:hover,
+  .footer__contact a:hover {
+    color: var(--teal-light);
+  }
+  .footer__contact {
+    grid-column: 9 / 13;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 14.5px;
+  }
+  .footer__label {
+    margin-bottom: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .footer__word {
+    margin: clamp(56px, 8vw, 96px) 0 0;
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(96px, 25vw, 380px);
+    line-height: 0.78;
+    letter-spacing: -0.03em;
+    color: var(--on-night);
+    opacity: 0.94;
+    transform: translateX(-0.04em);
+  }
+  .footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 28px 0 36px;
+    margin-top: clamp(28px, 4vw, 48px);
+    border-top: 1px solid var(--line-night);
+    font-size: 13px;
+  }
+  .footer__bottom a {
+    color: var(--on-night-soft);
+    text-decoration: none;
+  }
+  .footer__bottom a:hover {
+    color: var(--on-night);
+  }
+</style>

@@ -1,0 +1,8 @@
+---
+// Placeholder vector of the draft arrowhead mark (a heading, not a pointer).
+interface Props { class?: string; title?: string }
+const { class: className, title } = Astro.props;
+---
+<svg class={className} viewBox="0 0 32 36" fill="currentColor" role={title ? 'img' : undefined} aria-label={title} aria-hidden={title ? undefined : 'true'}>
+  <path d="M12.6 0.8 L30.4 35 L14.9 26.2 L1.6 31.4 Z" />
+</svg>

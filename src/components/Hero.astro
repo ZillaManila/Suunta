@@ -1,0 +1,251 @@
+---
+import ArrowIcon from './ArrowIcon.astro';
+import { site } from '../data/site';
+
+// Scattered "AI activity" points that converge into one direction.
+const scatter = [
+  [52, 470], [104, 522], [34, 398], [148, 456], [88, 372], [168, 516], [126, 414], [22, 506],
+];
+const converge = [214, 430];
+const dots: [number, number][] = [];
+for (let x = 20; x <= 500; x += 32) for (let y = 20; y <= 540; y += 32) dots.push([x, y]);
+---
+
+<section class="hero" id="top">
+  <div class="wrap grid hero__grid">
+    <div class="hero__copy">
+      <p class="eyebrow" data-reveal>Human-centered AI consulting for C-suite leaders and founders</p>
+      <h1 class="display hero__title" data-reveal style="--i:1">
+        Turn Underperforming AI Adoption Into <em>Measurable Time and Cost Savings</em>
+      </h1>
+      <p class="lede hero__lede" data-reveal style="--i:2">
+        I help C-suite leaders and founders turn underperforming AI adoption into measurable time and cost
+        savings. I start by identifying where AI can create business value, redesign how people and AI work
+        together, rebuild the workflow around it, and align reward systems so the new way of working sticks.
+      </p>
+      <p class="hero__note" data-reveal style="--i:3">
+        Bring one business priority. A Direction Call helps clarify the outcome you want, the work involved,
+        and the right next step.
+      </p>
+      <div class="hero__actions" data-reveal style="--i:4">
+        <a class="btn" href={site.bookingUrl}>Book a Direction Call <ArrowIcon /></a>
+        <a class="btn btn--ghost" href="#method">Explore the Approach</a>
+      </div>
+    </div>
+
+    <figure class="hero__figure" aria-hidden="true" data-draw>
+      <svg viewBox="0 0 520 560" class="direction">
+        <g class="direction__grid">
+          {dots.map(([x, y]) => <circle cx={x} cy={y} r="1" />)}
+        </g>
+
+        <g class="direction__activity">
+          {scatter.map(([x, y], i) => (
+            <path
+              d={`M${x} ${y} Q ${(x + converge[0]) / 2 + (i % 2 ? 18 : -14)} ${(y + converge[1]) / 2 + (i % 3 ? -16 : 20)} ${converge[0]} ${converge[1]}`}
+              style={`--d:${i * 70}ms`}
+            />
+          ))}
+          {scatter.map(([x, y]) => <circle cx={x} cy={y} r="3.2" />)}
+        </g>
+
+        <circle class="direction__ring" cx="430" cy="112" r="74" />
+        <circle class="direction__ring direction__ring--inner" cx="430" cy="112" r="44" />
+
+        <path
+          class="direction__path"
+          pathLength="1"
+          d="M214 430 C 240 396, 246 366, 262 336 S 316 262, 336 238 S 398 162, 430 112 L 468 54"
+        />
+        <path class="direction__head" d="M472.4 47.3 L469.7 62.3 L466.9 55.7 L459.7 55.7 Z" />
+
+        <g class="direction__nodes">
+          <g style="--d:900ms"><circle cx="214" cy="430" r="5" /><text x="232" y="452">AI activity</text></g>
+          <g style="--d:1150ms"><circle cx="262" cy="336" r="6" /><text x="282" y="340">Work</text></g>
+          <g style="--d:1400ms"><circle cx="336" cy="238" r="6" /><text x="356" y="242">Workflow</text></g>
+          <g style="--d:1650ms"><circle cx="430" cy="112" r="6" /><text x="350" y="116" text-anchor="end">Value</text></g>
+        </g>
+      </svg>
+      <figcaption class="hero__caption">
+        <span>Suunta</span> &nbsp;/&nbsp; direction, in Finnish
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: min(100dvh, 980px);
+    display: flex;
+    align-items: center;
+    padding: clamp(120px, 15vh, 168px) 0 clamp(72px, 10vh, 120px);
+  }
+  .hero__grid {
+    align-items: center;
+    row-gap: 56px;
+  }
+  .hero__copy {
+    grid-column: 1 / 8;
+  }
+  .hero__title {
+    margin-top: 28px;
+    font-size: clamp(40px, 5vw, 68px);
+  }
+  .hero__title em {
+    color: var(--teal-deep);
+  }
+  .hero__lede {
+    margin-top: 32px;
+  }
+  .hero__note {
+    margin-top: 28px;
+    padding-left: 20px;
+    border-left: 1px solid var(--teal);
+    max-width: 56ch;
+    font-size: 15.5px;
+    color: var(--ink-soft);
+  }
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 40px;
+  }
+  .hero__figure {
+    grid-column: 8 / 13;
+    margin: 0;
+  }
+  .hero__caption {
+    margin-top: 8px;
+    text-align: right;
+    font-size: 13px;
+    color: var(--ink-muted);
+    letter-spacing: 0.02em;
+  }
+  .hero__caption span {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 16px;
+    color: var(--ink);
+  }
+
+  .direction {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+  .direction__grid circle {
+    fill: var(--ink);
+    opacity: 0.13;
+  }
+  .direction__activity path {
+    fill: none;
+    stroke: var(--ink-muted);
+    stroke-width: 1;
+    stroke-dasharray: 2 4;
+    opacity: 0.55;
+  }
+  .direction__activity circle {
+    fill: var(--paper);
+    stroke: var(--ink-muted);
+    stroke-width: 1.2;
+  }
+  .direction__ring {
+    fill: none;
+    stroke: var(--teal);
+    stroke-width: 1;
+    opacity: 0.22;
+  }
+  .direction__ring--inner {
+    stroke-dasharray: 2 5;
+    opacity: 0.4;
+  }
+  .direction__path {
+    fill: none;
+    stroke: var(--teal);
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+  }
+  .direction__head {
+    fill: var(--teal);
+  }
+  .direction__nodes circle {
+    fill: var(--paper);
+    stroke: var(--teal);
+    stroke-width: 1.6;
+  }
+  .direction__nodes g:first-child circle {
+    stroke: var(--ink-muted);
+  }
+  .direction__nodes text {
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    fill: var(--ink);
+  }
+  .direction__nodes g:first-child text {
+    fill: var(--ink-muted);
+  }
+
+  /* Draw-in sequence */
+  :global(.js) .direction__path {
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 1.9s cubic-bezier(0.65, 0, 0.35, 1) 0.5s;
+  }
+  :global(.js) .direction__head,
+  :global(.js) .direction__nodes g,
+  :global(.js) .direction__activity path {
+    opacity: 0;
+    transition: opacity 0.8s var(--ease);
+  }
+  :global(.js) .direction__head {
+    transition-delay: 2.2s;
+  }
+  :global(.js) .direction__nodes g {
+    transition-delay: var(--d);
+  }
+  :global(.js) .direction__activity path {
+    transition-delay: var(--d);
+  }
+  :global(.js) .hero__figure.is-in .direction__path {
+    stroke-dashoffset: 0;
+  }
+  :global(.js) .hero__figure.is-in .direction__head,
+  :global(.js) .hero__figure.is-in .direction__nodes g {
+    opacity: 1;
+  }
+  :global(.js) .hero__figure.is-in .direction__activity path {
+    opacity: 0.55;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(.js) .direction__path {
+      stroke-dashoffset: 0;
+      transition: none;
+    }
+    :global(.js) .direction__head,
+    :global(.js) .direction__nodes g {
+      opacity: 1;
+      transition: none;
+    }
+    :global(.js) .direction__activity path {
+      opacity: 0.55;
+      transition: none;
+    }
+  }
+
+  @media (max-width: 899px) {
+    .hero {
+      min-height: 0;
+    }
+    .hero__figure {
+      max-width: 420px;
+      margin-left: auto;
+    }
+  }
+</style>

@@ -1,0 +1,257 @@
+---
+import Logo from './Logo.astro';
+import { nav, site } from '../data/site';
+---
+
+<header class="header" data-header>
+  <div class="wrap header__inner">
+    <a href="#top" class="header__logo" aria-label="Suunta Labs, back to top">
+      <Logo />
+    </a>
+
+    <nav class="header__nav" aria-label="Primary">
+      <ul>
+        {nav.map((item) => (
+          <li><a href={item.href} data-nav-link>{item.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="header__actions">
+      <a class="header__cta" href={site.bookingUrl}>Book a Direction Call</a>
+      <button class="header__toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle>
+        <span class="sr-only">Menu</span>
+        <span class="header__bars" aria-hidden="true"><span></span><span></span></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-menu" id="mobile-menu" data-menu hidden>
+    <nav class="wrap" aria-label="Mobile">
+      <ul>
+        {nav.map((item, i) => (
+          <li style={`--i:${i}`}><a href={item.href} data-menu-link>{item.label}</a></li>
+        ))}
+        <li style={`--i:${nav.length}`}><a href="#contact" data-menu-link>Contact</a></li>
+      </ul>
+      <a class="btn" href={site.bookingUrl}>Book a Direction Call</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 40;
+    transition: background-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  }
+  .header.is-scrolled,
+  .header.is-open {
+    background: rgba(245, 244, 240, 0.92);
+    backdrop-filter: saturate(1.4) blur(14px);
+    -webkit-backdrop-filter: saturate(1.4) blur(14px);
+    box-shadow: 0 1px 0 var(--line);
+  }
+  .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    height: 76px;
+  }
+  .header__logo {
+    text-decoration: none;
+  }
+  .header__nav ul {
+    display: flex;
+    gap: clamp(20px, 2.6vw, 40px);
+    list-style: none;
+  }
+  .header__nav a {
+    position: relative;
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    padding: 6px 0;
+    transition: color 0.25s;
+  }
+  .header__nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: var(--teal);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s var(--ease);
+  }
+  .header__nav a:hover,
+  .header__nav a.is-active {
+    color: var(--ink);
+  }
+  .header__nav a:hover::after,
+  .header__nav a.is-active::after {
+    transform: scaleX(1);
+  }
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .header__cta {
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--ink);
+    padding: 11px 16px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  }
+  .header__cta:hover {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: #fff;
+  }
+  .header__toggle {
+    display: none;
+    width: 44px;
+    height: 44px;
+    margin-right: -10px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    color: var(--ink);
+  }
+  .header__bars {
+    position: relative;
+    display: block;
+    width: 22px;
+    height: 8px;
+    margin: 0 auto;
+  }
+  .header__bars span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1.5px;
+    background: currentColor;
+    transition: transform 0.4s var(--ease), top 0.4s var(--ease);
+  }
+  .header__bars span:first-child {
+    top: 0;
+  }
+  .header__bars span:last-child {
+    top: 7px;
+  }
+  .is-open .header__bars span:first-child {
+    top: 3.5px;
+    transform: rotate(45deg);
+  }
+  .is-open .header__bars span:last-child {
+    top: 3.5px;
+    transform: rotate(-45deg);
+  }
+
+  .mobile-menu {
+    height: calc(100dvh - 76px);
+    overflow-y: auto;
+    background: var(--paper);
+    border-top: 1px solid var(--line);
+  }
+  .mobile-menu nav {
+    padding-top: 32px;
+    padding-bottom: 40px;
+  }
+  .mobile-menu ul {
+    list-style: none;
+    margin-bottom: 36px;
+  }
+  .mobile-menu li {
+    border-bottom: 1px solid var(--line);
+    animation: menu-in 0.6s var(--ease) both;
+    animation-delay: calc(var(--i) * 50ms);
+  }
+  .mobile-menu li a {
+    display: block;
+    padding: 16px 0;
+    font-family: var(--serif);
+    font-size: 30px;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  @keyframes menu-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  }
+
+  @media (max-width: 999px) {
+    .header__nav {
+      display: none;
+    }
+    .header__toggle {
+      display: block;
+    }
+  }
+  @media (max-width: 520px) {
+    .header__cta {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const menu = document.querySelector<HTMLElement>('[data-menu]');
+
+  if (header) {
+    // Sentinel instead of a scroll listener: header gets a surface once the hero top leaves.
+    const sentinel = document.createElement('div');
+    sentinel.style.cssText = 'position:absolute;top:0;height:24px;width:1px;pointer-events:none';
+    document.body.prepend(sentinel);
+    new IntersectionObserver(([entry]) => {
+      header.classList.toggle('is-scrolled', !entry.isIntersecting);
+    }).observe(sentinel);
+  }
+
+  const setOpen = (open: boolean) => {
+    if (!header || !toggle || !menu) return;
+    header.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    menu.hidden = !open;
+    document.body.style.overflow = open ? 'hidden' : '';
+  };
+
+  toggle?.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+  menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setOpen(false);
+  });
+  window.matchMedia('(min-width: 1000px)').addEventListener('change', (e) => {
+    if (e.matches) setOpen(false);
+  });
+
+  // Highlight the nav link for the section in view.
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-nav-link]')];
+  const sections = links
+    .map((a) => document.querySelector<HTMLElement>(a.getAttribute('href') || ''))
+    .filter((s): s is HTMLElement => !!s);
+  const spy = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        links.forEach((a) => a.classList.toggle('is-active', a.getAttribute('href') === `#${entry.target.id}`));
+      });
+    },
+    { rootMargin: '-45% 0px -50% 0px' }
+  );
+  sections.forEach((s) => spy.observe(s));
+</script>

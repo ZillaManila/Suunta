@@ -1,0 +1,201 @@
+---
+import ArrowIcon from './ArrowIcon.astro';
+import { site, steps } from '../data/site';
+---
+
+<section class="section section--tint approach" id="approach" aria-labelledby="approach-title">
+  <div class="wrap grid">
+    <div class="approach__head">
+      <div class="approach__sticky">
+        <p class="eyebrow" data-reveal>The approach</p>
+        <h2 class="h2 approach__title" id="approach-title" data-reveal style="--i:1">
+          How the Method Moves Into Practice
+        </h2>
+        <p class="body approach__intro" data-reveal style="--i:2">
+          Work → Workflow → Value guides a connected journey from business direction through implementation and
+          adoption to a new way of working that leaders can measure, govern, and strengthen over time. This is my
+          approach to AI-assisted transformation.
+        </p>
+        <p class="approach__throughout" data-reveal style="--i:3">
+          Leadership alignment, team capability, trust, and adoption are addressed throughout the engagement.
+        </p>
+      </div>
+    </div>
+
+    <div class="approach__steps">
+      <ol class="steps" role="list">
+        {steps.map((s, i) => (
+          <li class="step" data-reveal>
+            <span class="step__node" aria-hidden="true">{i + 1}</span>
+            <div class="step__content">
+              <h3 class="step__title">
+                <span class="step__name">{i + 1}. {s.name}.</span>
+                <em>{s.title}</em>
+              </h3>
+              <p class="step__body">{s.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+
+      <div class="cycle" data-reveal>
+        <svg class="cycle__icon" viewBox="0 0 40 40" aria-hidden="true">
+          <path d="M33 20a13 13 0 1 1-4-9.4" />
+          <path d="M30 4.5v6.5h-6.5" />
+        </svg>
+        <p>Each cycle identifies the next opportunity, so the work keeps adapting as AI capabilities change.</p>
+      </div>
+
+      <div class="approach__cta" data-reveal>
+        <a class="btn" href={site.bookingUrl}>Book a Direction Call <ArrowIcon /></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .approach__head {
+    grid-column: 1 / 6;
+  }
+  .approach__sticky {
+    position: sticky;
+    top: 120px;
+  }
+  .approach__title {
+    margin-top: 24px;
+  }
+  .approach__intro {
+    margin-top: 28px;
+  }
+  .approach__throughout {
+    margin-top: 28px;
+    padding-left: 20px;
+    border-left: 1px solid var(--teal);
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 19px;
+    line-height: 1.45;
+    color: var(--ink);
+    max-width: 40ch;
+  }
+  .approach__steps {
+    grid-column: 7 / 13;
+  }
+
+  .steps {
+    position: relative;
+    list-style: none;
+  }
+  /* The direction line connecting the steps */
+  .steps::before {
+    content: '';
+    position: absolute;
+    left: 19px;
+    top: 20px;
+    bottom: 20px;
+    width: 1px;
+    background: linear-gradient(var(--teal), var(--teal)) top / 1px 100% no-repeat, var(--line-strong);
+  }
+  @supports (animation-timeline: view()) {
+    .steps::before {
+      background-size: 1px 0%;
+      animation: line-grow linear both;
+      animation-timeline: view();
+      animation-range: entry 30% cover 70%;
+    }
+    @keyframes line-grow {
+      to {
+        background-size: 1px 100%;
+      }
+    }
+  }
+
+  .step {
+    position: relative;
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: clamp(20px, 2.6vw, 36px);
+    padding-bottom: clamp(44px, 5vw, 64px);
+  }
+  .step__node {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--paper-2);
+    border: 1px solid var(--teal);
+    color: var(--teal-deep);
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.5s var(--ease), color 0.5s var(--ease);
+  }
+  .step.is-in .step__node {
+    background: var(--teal);
+    color: #fff;
+  }
+  .step__content {
+    padding-top: 6px;
+  }
+  .step__title {
+    font-family: var(--serif);
+    font-size: clamp(24px, 2.2vw, 30px);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  .step__name {
+    display: block;
+    margin-bottom: 6px;
+    font-family: var(--sans);
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+  }
+  .step__title em {
+    font-weight: 360;
+  }
+  .step__body {
+    margin-top: 14px;
+    color: var(--ink-soft);
+    max-width: 58ch;
+  }
+
+  .cycle {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: clamp(20px, 2.6vw, 36px);
+    align-items: center;
+    padding: 28px 0;
+    border-top: 1px solid var(--line-strong);
+    border-bottom: 1px solid var(--line-strong);
+  }
+  .cycle__icon {
+    width: 40px;
+    height: 40px;
+    fill: none;
+    stroke: var(--teal);
+    stroke-width: 1.4;
+    stroke-linecap: square;
+  }
+  .cycle p {
+    font-family: var(--serif);
+    font-size: 20px;
+    line-height: 1.4;
+  }
+  .approach__cta {
+    margin-top: 40px;
+  }
+
+  @media (max-width: 899px) {
+    .approach__sticky {
+      position: static;
+    }
+    .approach__steps {
+      margin-top: 64px;
+    }
+  }
+</style>

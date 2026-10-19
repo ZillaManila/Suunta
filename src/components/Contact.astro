@@ -1,0 +1,125 @@
+---
+import ArrowIcon from './ArrowIcon.astro';
+import { bring, site } from '../data/site';
+---
+
+<section class="section section--night contact" id="contact" aria-labelledby="contact-title">
+  <div class="wrap grid">
+    <div class="contact__main">
+      <p class="eyebrow" data-reveal>Find your direction</p>
+      <h2 class="contact__title" id="contact-title" data-reveal style="--i:1">
+        Begin With <em>Direction</em>
+      </h2>
+      <p class="lede contact__lede" data-reveal style="--i:2">
+        Bring one business priority where AI could improve how work gets done. A Direction Call explores the
+        outcome you want, the work involved, and the questions that deserve executive attention.
+      </p>
+      <p class="body contact__after" data-reveal style="--i:3">
+        After the call, I recommend an assessment, diagnostic, or advisory path suited to your context and
+        readiness.
+      </p>
+      <div class="contact__cta" data-reveal style="--i:4">
+        <a class="btn btn--light" href={site.bookingUrl}>Book a Direction Call <ArrowIcon /></a>
+      </div>
+    </div>
+
+    <aside class="contact__bring" data-reveal style="--i:2">
+      <p class="contact__bring-title">You may want to bring:</p>
+      <ol role="list">
+        {bring.map((b, i) => (
+          <li>
+            <span>{String(i + 1).padStart(2, '0')}</span>
+            {b}
+          </li>
+        ))}
+      </ol>
+      <div class="contact__direct">
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+        <a href={site.linkedin} target="_blank" rel="noopener noreferrer">{site.linkedinLabel}</a>
+        <span>{site.location}</span>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<style>
+  .contact {
+    padding-bottom: clamp(80px, 10vw, 136px);
+  }
+  .contact__main {
+    grid-column: 1 / 8;
+  }
+  .contact__title {
+    margin-top: 28px;
+    font-family: var(--serif);
+    font-weight: 340;
+    font-size: clamp(52px, 8vw, 116px);
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+  }
+  .contact__title em {
+    color: var(--teal-light);
+    font-weight: 300;
+  }
+  .contact__lede {
+    margin-top: 36px;
+  }
+  .contact__after {
+    margin-top: 18px;
+  }
+  .contact__cta {
+    margin-top: 44px;
+  }
+  .contact__bring {
+    grid-column: 9 / 13;
+    align-self: end;
+    margin-top: 56px;
+  }
+  .contact__bring-title {
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--line-night);
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--on-night-soft);
+  }
+  .contact__bring ol {
+    list-style: none;
+  }
+  .contact__bring li {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line-night);
+    font-family: var(--serif);
+    font-size: 19px;
+    line-height: 1.4;
+  }
+  .contact__bring li span {
+    padding-top: 4px;
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--teal-light);
+  }
+  .contact__direct {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 32px;
+    font-size: 14.5px;
+    color: var(--on-night-soft);
+  }
+  .contact__direct a {
+    color: var(--on-night);
+    text-decoration: none;
+    width: fit-content;
+    background: linear-gradient(var(--teal-light), var(--teal-light)) left bottom / 0 1px no-repeat;
+    transition: background-size 0.4s var(--ease);
+  }
+  .contact__direct a:hover {
+    background-size: 100% 1px;
+  }
+</style>

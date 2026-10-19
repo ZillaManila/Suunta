@@ -1,0 +1,151 @@
+---
+import { method } from '../data/site';
+const levels = ['Business outcomes', 'Workflow performance', 'The capacity and experience of the people doing the work'];
+---
+
+<section class="section section--tint method" id="method" aria-labelledby="method-title">
+  <div class="wrap">
+    <div class="grid">
+      <div class="method__head">
+        <p class="eyebrow" data-reveal>The method</p>
+        <h2 class="h2 method__title" id="method-title" data-reveal style="--i:1">
+          Work <span class="arrow">→</span> Workflow <span class="arrow">→</span> Value
+        </h2>
+        <p class="lede method__lede" data-reveal style="--i:2">
+          AI-assisted work is redesigned for value. I begin with the business priority and the work that creates
+          it. The method connects three questions leaders need to answer.
+        </p>
+      </div>
+    </div>
+
+    <ol class="method__list" role="list">
+      {method.map((m, i) => (
+        <li class="method__row" data-reveal style={`--i:${i}`}>
+          <span class="method__index">0{i + 1}</span>
+          <h3 class="method__term">{m.term}</h3>
+          <p class="method__q">{m.question}</p>
+        </li>
+      ))}
+    </ol>
+
+    <div class="grid method__value">
+      <div class="method__value-text">
+        <p class="body" data-reveal>
+          Value is measured at three levels: business outcomes, workflow performance, and the capacity and
+          experience of the people doing the work.
+        </p>
+        <p class="body" data-reveal style="--i:1">
+          Better-designed work should strengthen employee trust, clarity, confidence, agency, and meaning. Aligned
+          reward systems reinforce the new ways of working the organization wants to sustain.
+        </p>
+      </div>
+      <ol class="levels" role="list" aria-label="Three levels of value">
+        {levels.map((l, i) => (
+          <li class="levels__item" data-reveal style={`--i:${i}`}>
+            <span class="levels__bar" style={`--w:${100 - i * 18}%`}></span>
+            <span class="levels__label">{l}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>
+
+<style>
+  .method__head {
+    grid-column: 1 / 10;
+  }
+  .method__title {
+    margin-top: 24px;
+    font-size: clamp(40px, 6vw, 84px);
+  }
+  .method__lede {
+    margin-top: 28px;
+  }
+  .method__list {
+    list-style: none;
+    margin-top: clamp(64px, 8vw, 104px);
+    border-top: 1px solid var(--line-strong);
+  }
+  .method__row {
+    position: relative;
+    display: grid;
+    grid-template-columns: 64px minmax(0, 4fr) minmax(0, 7fr);
+    gap: clamp(16px, 2.4vw, 32px);
+    align-items: baseline;
+    padding: clamp(28px, 3.4vw, 44px) 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .method__row::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    height: 1px;
+    width: 100%;
+    background: var(--teal);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.8s var(--ease);
+  }
+  .method__row:hover::after {
+    transform: scaleX(1);
+  }
+  .method__index {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--teal);
+  }
+  .method__term {
+    font-family: var(--serif);
+    font-size: clamp(32px, 3.6vw, 52px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .method__q {
+    font-size: clamp(18px, 1.5vw, 21px);
+    line-height: 1.5;
+    color: var(--ink-soft);
+    max-width: 52ch;
+  }
+  .method__value {
+    margin-top: clamp(64px, 8vw, 104px);
+    row-gap: 48px;
+    align-items: start;
+  }
+  .method__value-text {
+    grid-column: 1 / 7;
+  }
+  .method__value-text > * + * {
+    margin-top: 1.1em;
+  }
+  .levels {
+    grid-column: 8 / 13;
+    list-style: none;
+  }
+  .levels__item + .levels__item {
+    margin-top: 22px;
+  }
+  .levels__bar {
+    display: block;
+    height: 2px;
+    width: var(--w);
+    background: linear-gradient(90deg, var(--teal), rgba(14, 116, 144, 0.25));
+  }
+  .levels__label {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--ink);
+  }
+
+  @media (max-width: 699px) {
+    .method__row {
+      grid-template-columns: 40px 1fr;
+    }
+    .method__q {
+      grid-column: 2;
+    }
+  }
+</style>

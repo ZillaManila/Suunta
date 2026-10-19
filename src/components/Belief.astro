@@ -1,0 +1,65 @@
+---
+import Mark from './Mark.astro';
+---
+
+<section class="section section--night belief" id="belief" aria-labelledby="belief-title">
+  <div class="wrap grid">
+    <div class="belief__label">
+      <p class="eyebrow" data-reveal>The belief behind the work</p>
+      <Mark class="belief__mark" />
+    </div>
+    <div class="belief__copy">
+      <h2 class="belief__quote" id="belief-title" data-reveal style="--i:1">
+        Underneath the work is a simple belief: <em>people should find more meaning in their work and more freedom
+        in their lives.</em>
+      </h2>
+      <p class="lede belief__lede" data-reveal style="--i:2">
+        Redesigning how people and AI work together can create measurable business value while also giving people
+        greater clarity, confidence, agency, trust, and meaning in how they contribute.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .belief {
+    position: relative;
+    overflow: hidden;
+  }
+  .belief__label {
+    grid-column: 1 / 4;
+    padding-top: 16px;
+  }
+  .belief__label :global(.belief__mark) {
+    width: 34px;
+    margin-top: 48px;
+    color: var(--teal-light);
+    opacity: 0.8;
+  }
+  .belief__copy {
+    grid-column: 4 / 12;
+  }
+  .belief__quote {
+    font-family: var(--serif);
+    font-weight: 340;
+    font-size: clamp(32px, 4vw, 56px);
+    line-height: 1.12;
+    letter-spacing: -0.018em;
+    text-wrap: balance;
+  }
+  .belief__quote em {
+    color: var(--teal-light);
+    font-weight: 320;
+  }
+  .belief__lede {
+    margin-top: 40px;
+  }
+  @media (max-width: 899px) {
+    .belief__label :global(.belief__mark) {
+      display: none;
+    }
+    .belief__copy {
+      margin-top: 28px;
+    }
+  }
+</style>
