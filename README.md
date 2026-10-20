@@ -14,6 +14,9 @@ npm run build     # outputs the finished site to dist/
 npm run preview   # serve the built site
 ```
 
+**Single HTML file:** `npm run build:single` writes `suunta-labs-website.html`, one self-contained file
+(styles, scripts, fonts and images embedded) that opens by double-clicking, with no server or internet.
+
 The `dist/` folder can be hosted anywhere static sites are hosted (Netlify, Vercel, Cloudflare Pages, etc.).
 
 ## Design direction
