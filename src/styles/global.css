@@ -431,8 +431,9 @@ ol {
   display: inline-block;
   overflow: hidden;
   vertical-align: top;
-  padding-bottom: 0.12em;
-  margin-bottom: -0.12em;
+  /* room around each word so tall or swash glyphs (like the serif S) are never clipped by the mask */
+  padding: 0.2em 0.08em 0.14em;
+  margin: -0.2em -0.08em -0.14em;
 }
 
 .js [data-split] .w__i {
