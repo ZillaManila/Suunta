@@ -13,9 +13,9 @@ const photos = [
 
 <section class="section section--tint method" id="method" aria-labelledby="method-title">
   <div class="wrap">
-    <div class="grid">
+    <div class="method__intro">
       <div class="method__head">
-        <p class="eyebrow" data-reveal>The method</p>
+        <p class="eyebrow method__eyebrow" data-reveal>The method</p>
         <h2 class="h2 method__title" id="method-title" data-split>
           Work <span class="arrow">→</span> Workflow <span class="arrow">→</span> Value
         </h2>
@@ -74,17 +74,28 @@ const photos = [
 </section>
 
 <style>
-  .method__head {
-    grid-column: 1 / 8;
+  /* Centered intro: eyebrow, one-line title, body text */
+  .method__intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .method__eyebrow::after {
+    content: '';
+    width: 28px;
+    height: 1px;
+    background: var(--teal);
   }
   .method__title {
     margin-top: 24px;
-    font-size: clamp(40px, 6vw, 84px);
+    font-size: clamp(30px, 5.6vw, 84px);
+    white-space: nowrap;
+    text-wrap: nowrap;
   }
   .method__lede {
-    grid-column: 8 / 13;
-    align-self: end;
-    margin-top: 28px;
+    max-width: 60ch;
+    margin: 28px auto 0;
   }
 
   /* Sticky stacking cards */
