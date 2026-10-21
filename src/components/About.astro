@@ -71,23 +71,18 @@ import { credentials, site } from '../data/site';
       </div>
     </div>
 
-    <div class="why">
-      <ImageSlot
-        label="Finnish landscape: still water, forest, a clear horizon"
-        src="/images/finnish-lake.jpg"
-        alt="A still lake in mist, framed by pine forest"
-        ratio="21 / 9"
-        tone="mist"
-        class="why__img why__img--light"
-      >
-        <div class="why__overlay">
-          <p class="why__suunta" data-split>Suunta</p>
-          <p class="why__say"><span>SOON-tah</span> · direction, in Finnish</p>
-        </div>
-      </ImageSlot>
-      <div class="grid why__row">
+  </div>
+
+  <div class="why">
+    <div class="why__bg" aria-hidden="true">
+      <img src="/images/finnish-lake.jpg" alt="" loading="lazy" decoding="async" />
+    </div>
+    <div class="wrap why__inner">
+      <div class="why__content">
+        <p class="why__suunta" data-split>Suunta</p>
+        <p class="why__say" data-reveal><span>SOON-tah</span> · direction, in Finnish</p>
         <h3 class="h3 why__title" data-reveal>Why Suunta Labs</h3>
-        <p class="body why__body" data-reveal style="--i:1">
+        <p class="why__body" data-reveal style="--i:1">
           Suunta, pronounced SOON-tah, means direction in Finnish. I chose the name because meaningful
           transformation begins with clarity about the value an organization wants to create and the work that
           will create it. Labs reflects the practical nature of the work: explore, redesign, test, learn, and refine
@@ -233,33 +228,72 @@ import { credentials, site } from '../data/site';
     padding-top: 10px;
   }
 
-  .why {
-    margin-top: clamp(96px, 12vw, 160px);
+  .about {
+    padding-bottom: 0;
   }
-  .why :global(.why__img--light .slot__media)::after {
-    /* soft white wash so the navy wordmark reads over the photo */
+  /* Full-width "Why Suunta Labs" band with the copy set inside the photo */
+  .why {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: min(92vh, 860px);
+    margin-top: clamp(96px, 12vw, 160px);
+    padding: clamp(80px, 10vw, 140px) 0;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .why__bg {
+    position: absolute;
+    inset: -6% 0;
+    z-index: -1;
+  }
+  .why__bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 62%;
+    /* cool, muted grade so the lake reads as a northern morning */
+    filter: saturate(0.35) hue-rotate(12deg) brightness(1.04) contrast(0.98);
+  }
+  .why__bg::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(90deg, rgba(245, 244, 240, 0.78) 0%, rgba(245, 244, 240, 0.35) 55%, rgba(245, 244, 240, 0) 100%);
+    background:
+      linear-gradient(90deg, rgba(245, 244, 240, 0.86) 0%, rgba(245, 244, 240, 0.7) 40%, rgba(245, 244, 240, 0.15) 70%, rgba(245, 244, 240, 0) 100%),
+      linear-gradient(180deg, rgba(236, 235, 229, 0.9) 0%, rgba(236, 235, 229, 0) 18%);
   }
-  .why__overlay {
-    position: absolute;
-    inset: auto 0 0 0;
-    z-index: 2;
-    padding: clamp(24px, 4vw, 56px);
-    padding-bottom: clamp(56px, 6vw, 80px);
+  @supports (animation-timeline: view()) {
+    .why__bg {
+      animation: why-drift linear both;
+      animation-timeline: view();
+      animation-range: cover;
+    }
+    @keyframes why-drift {
+      from {
+        transform: translateY(-4%);
+      }
+      to {
+        transform: translateY(4%);
+      }
+    }
+  }
+  .why__inner {
+    position: relative;
+  }
+  .why__content {
+    max-width: 600px;
   }
   .why__suunta {
     font-family: var(--serif);
     font-weight: 300;
-    font-size: clamp(72px, 13vw, 200px);
+    font-size: clamp(72px, 11vw, 168px);
     line-height: 0.85;
     letter-spacing: -0.045em;
     color: var(--ink);
   }
   .why__say {
-    margin-top: 16px;
+    margin-top: 18px;
     font-size: 14px;
     color: var(--ink-soft);
   }
@@ -268,21 +302,18 @@ import { credentials, site } from '../data/site';
     letter-spacing: 0.14em;
     color: var(--teal-deep);
   }
-  .why :global(.why__img .slot__chip) {
-    left: auto;
-    right: 14px;
-  }
-  .why__row {
-    margin-top: 48px;
-    row-gap: 16px;
-  }
   .why__title {
-    grid-column: 1 / 5;
+    margin-top: clamp(40px, 5vw, 64px);
+    padding-top: 28px;
+    border-top: 1px solid var(--line-strong);
   }
   .why__body {
-    grid-column: 6 / 12;
+    margin-top: 16px;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--ink);
+    max-width: 56ch;
   }
-
   @media (max-width: 899px) {
     .about__portrait {
       grid-row: auto;
@@ -299,11 +330,17 @@ import { credentials, site } from '../data/site';
     .creds dd {
       grid-column: 1;
     }
-    .why :global(.why__img) {
-      aspect-ratio: 4 / 3 !important;
+    .why {
+      min-height: 0;
+    }
+    .why__bg::after {
+      background: linear-gradient(180deg, rgba(245, 244, 240, 0.92) 0%, rgba(245, 244, 240, 0.78) 60%, rgba(245, 244, 240, 0.5) 100%);
     }
   }
   @media (prefers-reduced-motion: reduce) {
+    .why__bg {
+      animation: none;
+    }
     .about__dot {
       animation: none;
     }

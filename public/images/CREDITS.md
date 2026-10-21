@@ -5,7 +5,6 @@ free for commercial use, no attribution required. Credited here as good practice
 
 | File | Photo | Photographer | Source |
 | --- | --- | --- | --- |
-| `finnish-lake.jpg` | Lake River | Dominik Dombrowski | https://stocksnap.io/photo/lake-river-T67N25HBIA |
 
 ## Burst (Shopify)
 
@@ -39,3 +38,4 @@ Free to use commercially under the [Pexels license](https://www.pexels.com/licen
 | `brief-4.jpg` | https://www.pexels.com/photo/3184310/ |
 | `brief-5.jpg` | https://www.pexels.com/photo/3184322/ |
 | `belief-forest.jpg` | Foggy Forest With Snow Covered Trees | https://www.shopify.com/stock-photos/photos/foggy-forest-with-snow-covered-trees |
+| `finnish-lake.jpg` | Foggy Landscape Reflected In Lake | https://www.shopify.com/stock-photos/photos/foggy-landscape-reflected-in-lake |
