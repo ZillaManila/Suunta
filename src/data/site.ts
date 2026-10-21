@@ -282,6 +282,3 @@ export const valueLevels = [
   { icon: 'flow-arrow', label: 'Workflow performance' },
   { icon: 'hand-heart', label: 'The capacity and experience of the people doing the work' },
 ];
-
-// Words for the slow marquee band: the five stages of the approach.
-export const marquee = ['Direction', 'Work', 'Workflow', 'Activate', 'Value'];

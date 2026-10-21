@@ -25,8 +25,6 @@ const year = new Date().getFullYear();
       </div>
     </div>
 
-    <p class="footer__word" aria-hidden="true" data-split>Suunta</p>
-
     <div class="footer__bottom">
       <span>© {year} {site.legalName} All rights reserved.</span>
       <a href="#top">Back to top ↑</a>
@@ -91,24 +89,13 @@ const year = new Date().getFullYear();
     letter-spacing: 0.14em;
     text-transform: uppercase;
   }
-  .footer__word {
-    margin: clamp(56px, 8vw, 96px) 0 0;
-    font-family: var(--serif);
-    font-weight: 300;
-    font-size: clamp(96px, 25vw, 380px);
-    line-height: 0.78;
-    letter-spacing: -0.03em;
-    color: var(--on-night);
-    opacity: 0.94;
-    transform: translateX(-0.04em);
-  }
   .footer__bottom {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 12px;
     padding: 28px 0 36px;
-    margin-top: clamp(28px, 4vw, 48px);
+    margin-top: clamp(48px, 6vw, 72px);
     border-top: 1px solid var(--line-night);
     font-size: 13px;
   }

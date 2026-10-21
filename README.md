@@ -43,7 +43,7 @@ the approach timeline, and links.
   shows a designed placeholder labelled with the intended shot. To add a photo, put it in `public/images/`
   and pass `src="/images/your-photo.jpg" alt="..."`. The layout, wipe-in reveal and parallax stay the same.
 - **Motion** (`src/scripts/motion.ts` + component styles): word-by-word headline reveals, image wipes with
-  parallax, counting statistics, a slow marquee, stacking method cards, a drawing approach timeline, magnetic
+  parallax, counting statistics, stacking method cards, a drawing approach timeline, magnetic
   buttons, and a header that hides while scrolling down. All of it is switched off for visitors who set
   "reduce motion" in their system settings.
 
@@ -53,7 +53,6 @@ the approach timeline, and links.
 | --- | --- |
 | Header + mobile menu | `src/components/Header.astro` |
 | Hero (full-width background photo) | `src/components/Hero.astro` |
-| Marquee band | `src/components/Marquee.astro` |
 | The executive opportunity (McKinsey stats) | `src/components/Opportunity.astro` |
 | The method: Work → Workflow → Value | `src/components/Method.astro` |
 | Built to keep adapting (Gartner 2×) | `src/components/Adaptation.astro` |
