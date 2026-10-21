@@ -38,3 +38,4 @@ Free to use commercially under the [Pexels license](https://www.pexels.com/licen
 | `brief-3.jpg` | https://www.pexels.com/photo/3184302/ |
 | `brief-4.jpg` | https://www.pexels.com/photo/3184310/ |
 | `brief-5.jpg` | https://www.pexels.com/photo/3184322/ |
+| `belief-forest.jpg` | Foggy Forest With Snow Covered Trees | https://www.shopify.com/stock-photos/photos/foggy-forest-with-snow-covered-trees |
