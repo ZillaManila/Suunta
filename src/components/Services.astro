@@ -1,7 +1,6 @@
 ---
 // Layout follows the reference landing page's "Services" carousel: a swipeable row of
 // photo cards beside a dark intro panel, on an offset colour block.
-import Mark from './Mark.astro';
 import Icon from './Icon.astro';
 import { services, site } from '../data/site';
 ---
@@ -36,34 +35,15 @@ import { services, site } from '../data/site';
           <article class="svc-card">
             <div class="svc-media">
               <img src={s.image} alt={s.alt} loading="lazy" decoding="async" />
-              <span class="svc-tag">{String(i + 1).padStart(2, '0')} · {s.tag}</span>
+              <span class="svc-tag">{String(i + 1).padStart(2, '0')}</span>
             </div>
             <div class="svc-body">
               <span class="svc-tick" aria-hidden="true"></span>
               <h3>
                 <span class="svc-icon" aria-hidden="true"><Icon name={s.icon} /></span>
-                {s.name}
+                {s.name}.
               </h3>
               <p class="svc-sub">{s.body}</p>
-              <div class="zip" data-zip>
-                <div class="zip-body" data-zip-body id={`svc-zip-${i}`}>
-                  <ul>
-                    {s.includes.map((item) => <li>{item}</li>)}
-                  </ul>
-                  {'receive' in s && s.receive && (
-                    <p class="receive"><b>You receive</b> {s.receive}</p>
-                  )}
-                </div>
-                <button class="zip-toggle" type="button" data-zip-toggle aria-expanded="false" aria-controls={`svc-zip-${i}`}>
-                  <span class="zip-track" aria-hidden="true">
-                    <span class="zip-pull"><Mark /></span>
-                  </span>
-                  <span class="zip-label" data-more="What's included" data-less="Show less">What's included</span>
-                </button>
-              </div>
-              <div class="svc-btn">
-                <a href={site.bookingUrl} class="btn btn--ghost">Discuss this engagement</a>
-              </div>
             </div>
           </article>
         ))}
@@ -333,141 +313,10 @@ import { services, site } from '../data/site';
     color: var(--ink-soft);
   }
 
-  /* "What's included" expander: the arrowhead travels down a dotted track */
-  .zip {
-    text-align: left;
-  }
-  .zip-body {
-    overflow: hidden;
-    transition: max-height 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  :global(.js) .zip:not(.is-open) .zip-body {
-    -webkit-mask-image: linear-gradient(180deg, #000 40%, transparent 100%);
-    mask-image: linear-gradient(180deg, #000 40%, transparent 100%);
-  }
-  .zip-body ul {
-    list-style: none;
-    margin: 6px 0 18px;
-    border-top: 1px solid var(--line);
-  }
-  .zip-body li {
-    position: relative;
-    padding: 10px 0 10px 22px;
-    border-bottom: 1px solid var(--line);
-    font-size: 14.5px;
-    line-height: 1.5;
-  }
-  .zip-body li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 16px;
-    width: 9px;
-    height: 9px;
-    background: var(--mist);
-    border: 1.5px solid var(--teal);
-  }
-  .receive {
-    margin-bottom: 6px;
-    padding: 14px 16px;
-    background: var(--paper);
-    border-left: 3px solid var(--teal);
-    font-size: 14.5px;
-    line-height: 1.6;
-  }
-  .zip-toggle {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    min-height: 44px;
-    margin: 6px auto 0;
-    padding: 10px 0;
-    background: none;
-    border: 0;
-    color: var(--ink);
-    cursor: pointer;
-    font: inherit;
-    font-size: 12.5px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
-  .zip-track {
-    position: relative;
-    width: 22px;
-    height: 32px;
-    flex: none;
-  }
-  .zip-track::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    transform: translateX(-50%);
-    background: repeating-linear-gradient(180deg, var(--teal) 0 3px, transparent 3px 6px);
-    opacity: 0.45;
-    transition: opacity 0.3s;
-  }
-  .zip-pull {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    width: 14px;
-    color: var(--teal);
-    transform: translateX(-50%) rotate(180deg);
-    transition: top 0.5s cubic-bezier(0.65, 0, 0.35, 1), transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
-  }
-  .zip-pull :global(svg) {
-    width: 100%;
-    height: auto;
-  }
-  .zip.is-open .zip-pull {
-    top: calc(100% - 16px);
-    transform: translateX(-50%) rotate(0deg);
-  }
-  .zip.is-open .zip-track::before {
-    opacity: 1;
-  }
-  .svc-btn {
-    margin-top: auto;
-    padding-top: 22px;
-  }
-  .svc-btn .btn {
-    width: 100%;
-    justify-content: center;
-  }
 
-  @media (prefers-reduced-motion: reduce) {
-    .zip-body,
-    .zip-pull {
-      transition: none;
-    }
-  }
 </style>
 
 <script>
-  // "What's included" expanders: collapsed to a teaser height, expand to full.
-  const TEASER = 96;
-  document.querySelectorAll<HTMLElement>('[data-zip]').forEach((zip) => {
-    const body = zip.querySelector<HTMLElement>('[data-zip-body]');
-    const toggle = zip.querySelector<HTMLButtonElement>('[data-zip-toggle]');
-    const label = zip.querySelector<HTMLElement>('.zip-label');
-    if (!body || !toggle || !label) return;
-    body.style.maxHeight = `${TEASER}px`;
-    toggle.addEventListener('click', () => {
-      const open = !zip.classList.contains('is-open');
-      zip.classList.toggle('is-open', open);
-      toggle.setAttribute('aria-expanded', String(open));
-      label.textContent = (open ? label.dataset.less : label.dataset.more) || '';
-      body.style.maxHeight = open ? `${body.scrollHeight}px` : `${TEASER}px`;
-    });
-    window.addEventListener('resize', () => {
-      if (zip.classList.contains('is-open')) body.style.maxHeight = `${body.scrollHeight}px`;
-    });
-  });
-
   // Carousel arrows (native swipe and scroll-snap do the rest).
   const track = document.querySelector<HTMLElement>('[data-svc-track]');
   if (track) {

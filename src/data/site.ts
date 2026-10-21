@@ -28,9 +28,8 @@ export const stats = [
   { value: '80%', prefix: '', text: 'of respondents said AI improved their individual productivity.' },
   { value: '37%', prefix: '', text: 'of respondents reported a positive company-level profit impact from AI.' },
   {
-    value: '¾',
+    value: 'three-quarters',
     prefix: 'Nearly',
-    label: 'Nearly three-quarters',
     text: "of the survey's AI high performers reported fundamentally redesigning workflows.",
   },
 ];
@@ -88,69 +87,45 @@ export const steps = [
 export const services = [
   {
     name: 'Direction Call',
-    tag: 'Start here',
     image: '/images/svc-direction-call.jpg',
     alt: 'Two colleagues in a focused conversation',
     icon: 'chats-circle',
     body: 'A focused executive conversation about one business priority, the value you want AI to create, and the work or workflow involved.',
-    includes: ['One business priority', 'The value you want AI to create', 'The work or workflow involved'],
   },
   {
     name: 'Scoped Diagnostic',
-    tag: 'Diagnostic',
     image: '/images/svc-scoped-diagnostic.jpg',
     alt: 'Findings and charts reviewed on the table',
     icon: 'file-magnifying-glass',
     body: 'An examination of a defined business priority through interviews, relevant information, workflow analysis, and executive decision questions, delivered as a Key Findings Report and executive presentation.',
-    includes: ['Interviews', 'Relevant information', 'Workflow analysis', 'Executive decision questions'],
-    receive: 'A Key Findings Report and executive presentation.',
   },
   {
     name: 'Strategy, Priorities, and Roadmap',
-    tag: 'Roadmap',
     image: '/images/svc-strategy-roadmap.jpg',
     alt: 'A leader walking the team through priorities at a planning board',
     icon: 'map-trifold',
     body: 'A practical roadmap that connects business outcomes, AI opportunities, risks, readiness, priorities, sequencing, value measures, and implementation decisions.',
-    includes: ['Business outcomes', 'AI opportunities', 'Risks and readiness', 'Priorities and sequencing', 'Value measures', 'Implementation decisions'],
-    receive: 'A practical roadmap.',
   },
   {
     name: 'AI-Assisted Work and Workflow Redesign',
-    tag: 'Redesign',
     image: '/images/svc-work-redesign.jpg',
     alt: 'A team working through a workflow redesign at their laptops',
     icon: 'flow-arrow',
     body: 'A redesign of how people and AI contribute to the outcome, how the workflow operates, where decisions and oversight belong, and what data and access are required.',
-    includes: [
-      'How people and AI contribute to the outcome',
-      'How the workflow operates',
-      'Where decisions and oversight belong',
-      'What data and access are required',
-    ],
   },
   {
     name: 'Focused Implementation and Adoption',
-    tag: 'Adoption',
     image: '/images/svc-implementation.jpg',
     alt: 'A team gathered around a laptop during a pilot',
     icon: 'rocket-launch',
     body: 'A focused pilot or first-workflow implementation, with the executive alignment, team preparation, trust, and capability that help it move into practice.',
-    includes: ['A focused pilot or first-workflow implementation', 'Executive alignment', 'Team preparation', 'Trust and capability'],
   },
   {
     name: 'Measurement, Reinforcement, and Optimization',
-    tag: 'Optimization',
     image: '/images/svc-measurement.jpg',
     alt: 'Colleagues shaking hands on agreed results',
     icon: 'gauge',
     body: 'Results measurement, adoption review, and workflow refinement, with performance measures, recognition, incentives, career signals, and leadership expectations aligned to the outcomes you want to encourage.',
-    includes: [
-      'Results measurement',
-      'Adoption review',
-      'Workflow refinement',
-      'Performance measures, recognition, incentives, career signals, and leadership expectations aligned to the outcomes you want to encourage',
-    ],
   },
 ];
 
@@ -180,7 +155,6 @@ export const credentials = [
 export type Source = { label: string; url: string };
 
 export const insights: {
-  publisher: string;
   title: string;
   question: string;
   found: string;
@@ -188,7 +162,6 @@ export const insights: {
   sources: Source[];
 }[] = [
   {
-    publisher: 'Gartner',
     title: 'Five Conditions Help GenAI Move Beyond Proof of Concept',
     question:
       'Which of these conditions needs the most attention before your next AI initiative can move forward with confidence?',
@@ -204,7 +177,6 @@ export const insights: {
     ],
   },
   {
-    publisher: 'McKinsey',
     title: 'Connecting Individual Productivity With Company Profit',
     question:
       'Where is AI already helping people work better, and how will that improvement become measurable time or cost savings for the organization?',
@@ -220,7 +192,6 @@ export const insights: {
     ],
   },
   {
-    publisher: 'Gartner',
     title: 'Continuous Work Redesign Supports Sustained AI Transformation',
     question:
       'Where would continuous work redesign help your organization sustain AI value as priorities and technology evolve?',
@@ -236,7 +207,6 @@ export const insights: {
     ],
   },
   {
-    publisher: 'McKinsey',
     title: 'Workflow Redesign Is a Pattern Among AI High Performers',
     question: 'Which workflow offers a clear enough value opportunity to redesign, implement, and measure?',
     found:
@@ -251,7 +221,6 @@ export const insights: {
     ],
   },
   {
-    publisher: 'McKinsey · Deloitte',
     title: 'Adoption Depends on the People and Operating Model Around the Technology',
     question: 'What operating conditions will help the redesigned workflow become part of everyday work?',
     found:
@@ -277,8 +246,3 @@ export const bring = [
   { icon: 'lightbulb', text: 'The decision you want greater clarity to make.' },
 ];
 
-export const valueLevels = [
-  { icon: 'buildings', label: 'Business outcomes' },
-  { icon: 'flow-arrow', label: 'Workflow performance' },
-  { icon: 'hand-heart', label: 'The capacity and experience of the people doing the work' },
-];

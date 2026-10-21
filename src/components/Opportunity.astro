@@ -26,14 +26,13 @@ import { stats } from '../data/site';
         </p>
 
         <p class="opp__kicker" data-reveal>
-          <span class="chip"><Icon name="book-open-text" /> McKinsey, The State of AI in 2026</span>
-          <span>McKinsey's 2026 global survey found:</span>
+          McKinsey's 2026 global survey found:
         </p>
 
         <ul class="opp__stats" role="list">
           {stats.map((s, i) => (
             <li class="stat" data-reveal style={`--i:${i}`}>
-              <p class="stat__value" aria-label={s.label ?? s.value}>
+              <p class:list={['stat__value', { 'stat__value--words': !s.value.endsWith('%') }]}>
                 {s.prefix && <span class="stat__prefix">{s.prefix}</span>}
                 {s.value.endsWith('%') ? (
                   <span data-count={parseInt(s.value)} data-suffix="%">{s.value}</span>
@@ -121,6 +120,14 @@ import { stats } from '../data/site';
     color: var(--ink);
     font-variant-numeric: tabular-nums;
     font-variation-settings: 'opsz' 72;
+  }
+  .stat__value--words {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    font-size: clamp(34px, 3.4vw, 50px);
+    line-height: 1;
+    white-space: nowrap;
   }
   .stat__prefix {
     font-family: var(--sans);

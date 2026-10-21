@@ -69,7 +69,8 @@ the approach timeline, and links.
 - **Email, LinkedIn, booking link**: `src/data/site.ts` (`site`). The "Book a Direction Call" buttons all use
   `site.bookingUrl`, currently a `mailto:` placeholder. Swap in a Calendly (or similar) link when ready.
 - **Services, approach steps, credentials, insights, stats**: also in `src/data/site.ts`.
-- Copy source: *JOHN HYTTINEN MASTER DOC, Oct 7 2026* (final website copy).
+- Copy source: *JOHN HYTTINEN MASTER DOC, Oct 7 2026* (final website copy), used 1:1. Every sentence on the
+  page comes from that document; the only other text is navigation and accessibility labels.
 
 ## Placeholders to replace
 
